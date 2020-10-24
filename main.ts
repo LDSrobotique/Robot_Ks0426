@@ -44,7 +44,7 @@ export function vitesse_roue_gauche (vitesse: number = 50): void {
 }
 //% blockId=Ks0426vitesseRD
 //% block="roue droite à $vitesse"
-export function vitesse_roue_droite (vitesse: number = 50): void{
+export function vitesse_roue_droite (vitesse: number = 50): void {
     vitesse |= 50
     let vitesseRD = vitesse
     let sens = 0
