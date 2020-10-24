@@ -25,7 +25,7 @@ export function initialisation (): void {
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
 //% blockId=Ks0426vitesseRG
 //% block="roue gauche à $vitesse"
-export function vitesseRG (vitesse: number): void {
+export function vitesseRG (vitesse: number=50): void {
     vitesse |= 0
     let vitRG = vitesse
     let sens = 0
@@ -44,23 +44,22 @@ export function vitesseRG (vitesse: number): void {
 }
 //% blockId=Ks0426vitesseRD
 //% block="roue droite à $vitesse"
-export function vitesse_roue_droite (vitesse: number): void {
-    vitesse |= 50
-    let vitesseRD = vitesse
+export function vitesseRD (vitesse: number): void {
+    vitesse |= 0
+    let vitRD = vitesse
     let sens = 0
-    if (vitesseRD >= 0) {
-        if (vitesseRD > 100) {
-            vitesseRD = 100
+    if (vitRD >= 0) {
+        if (vitRD > 100) {
+            vitRD = 100
         }
-        sens = 0
     } else {
-        if (vitesseRD < -100) {
-            vitesseRD = -100
+        if (vitRD < -100) {
+            vitRD = -100
         }
         sens = 100
     }
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, sens, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, Math.abs(vitesseRD), 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, Math.abs(vitRD), 67)
 }
 //% blockId=Ks0426stopperMouvement
 //% block="stopper le mouvement"
