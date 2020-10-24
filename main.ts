@@ -3,6 +3,7 @@ namespace Ks0426 {
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
 //% blockId=ks0426initialisation
+//% color=190 weignt=100
 //% block="initialisation"
 export function initialisation (): void {
     basic.clearScreen()
