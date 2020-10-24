@@ -2,7 +2,7 @@
 namespace Ks0426 {
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
- * @param vitesse; eg: 50
+ * vitesse; eg: 50
  */
 //% blockId=Ks0426initialisation
 //% block="initialisation"
