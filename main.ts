@@ -3,7 +3,7 @@ namespace Ks0426 {
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
-//% blockId=ks0426initialisation
+//% blockId=Ks0426initialisation
 //% block="initialisation"
 export function initialisation (): void {
     basic.clearScreen()
@@ -23,8 +23,11 @@ export function initialisation (): void {
 }
 // La vitesse de la roue doit être comprise entre -100 et 100 inclus.
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
-function vitesse_roue_gauche_à (num: number) {
-    vitesseRG = num
+//% blockId=Ks0426vitesseRG
+//% block="vitesse roue gauche à $vitesse % de puissance"
+export function vitesse_roue_gauche (vitesse: number): void {
+    vitesse |= 50
+    vitesseRG = vitesse
     if (vitesseRG >= 0) {
         if (vitesseRG > 100) {
             vitesseRG = 100
