@@ -82,5 +82,10 @@ export function stopper ():void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, 0, 67)
 }
+//% block="on event"
+export function onEvent(handler: () => void) {
+    handler();
+}
+
 let strip: neopixel.Strip = null
 }
