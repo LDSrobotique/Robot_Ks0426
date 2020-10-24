@@ -33,21 +33,48 @@ function fixVitesse (vitesse: number) {
     if (vitesse > 100 || vitesse < -100) { return 100 }
     else { return Math.abs(vitesse)}
 }
-//% blockId=Ks0426vitesseRG
+//% blockId=Ks0426roueG
 //% block="roue gauche à $vitesse"
 //% vitesse.defl=50
 export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
 }
-//% blockId=Ks0426vitesseRD
+//% blockId=Ks0426roueD
 //% block="roue droite à $vitesse"
 //% vitesse.defl=50
 export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
-//% blockId=Ks0426stopperMouvement
+//% blockId=Ks0426avancer
+//% block="avancer à $vitesse"
+//% vitesse.defl=50
+export function avancer (vitesse: number): void {
+    roueG(vitesse)
+    roueD(vitesse)
+}
+//% blockId=Ks0426reculer
+//% block="reculer à $vitesse"
+//% vitesse.defl=50
+export function reculer (vitesse: number): void {
+    avancer(-vitesse)
+}
+//% blockId=Ks0426tournerD
+//% block="tourner à droite à $vitesse"
+//% vitesse.defl=50
+export function tournerD (vitesse: number): void {
+    roueG(vitesse)
+    roueD(-vitesse)
+}
+//% blockId=Ks0426tournerG
+//% block="tourner à gauche à $vitesse"
+//% vitesse.defl=50
+export function tournerG (vitesse: number): void{
+    roueG(-vitesse)
+    roueD(vitesse)
+}
+//% blockId=Ks0426stopper
 //% block="stopper le mouvement"
 export function stopper ():void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
