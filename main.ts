@@ -42,6 +42,7 @@ export function roueG (vitesse: number): void {
 }
 //% blockId=Ks0426vitesseRD
 //% block="roue droite à $vitesse"
+//% vitesse.defl=50
 export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
