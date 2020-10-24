@@ -23,47 +23,31 @@ export function initialisation (): void {
 }
 // La vitesse de la roue doit être comprise entre -100 et 100 inclus.
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
+// fixSens renvoie 0 pour faire avancer la roue, 100 pour la faire reculer
+function fixSens (vitesse: number) {
+    if (vitesse >= 0) { return 0 } else { return 100 }
+}
+// fixVitesse renvoie un nombre compris entre 0 et 100 en fonction de vitesse qui
+// est compris entre -100 et 100
+function fixVitesse (vitesse: number) {
+    if (vitesse > 100 || vitesse < -100) { return 100 }
+    else { return Math.abs(vitesse)}
+}
 //% blockId=Ks0426vitesseRG
 //% block="roue gauche à $vitesse"
-export function vitesseRG (vitesse: number): void {
-    vitesse |= 0
-    let vitRG = vitesse
-    let sens = 0
-    if (vitRG >= 0) {
-        if (vitRG > 100) {
-            vitRG = 100
-        }
-    } else {
-        if (vitRG < -100) {
-            vitRG = -100
-        }
-        sens = 100
-    }
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, sens, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, Math.abs(vitRG), 67)
+export function roueG (vitesse: number): void {
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
 }
 //% blockId=Ks0426vitesseRD
 //% block="roue droite à $vitesse"
-export function vitesseRD (vitesse: number): void {
-    vitesse |= 0
-    let vitRD = vitesse
-    let sens = 0
-    if (vitRD >= 0) {
-        if (vitRD > 100) {
-            vitRD = 100
-        }
-    } else {
-        if (vitRD < -100) {
-            vitRD = -100
-        }
-        sens = 100
-    }
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, sens, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, Math.abs(vitRD), 67)
+export function roueD (vitesse: number): void {
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
 //% blockId=Ks0426stopperMouvement
 //% block="stopper le mouvement"
-export function stopper_mouvement ():void {
+export function stopper ():void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, 0, 67)
