@@ -6,4 +6,4 @@ Ks0426.stopper()
 basic.pause(500)
 Ks0426.avancer(-50)
 basic.pause(500)
-Ks0426.stopper
+Ks0426.stopper()
