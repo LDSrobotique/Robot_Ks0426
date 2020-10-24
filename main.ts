@@ -1,4 +1,4 @@
-//% color=190 weight=100
+//% color="#00FF00" weight=100
 namespace Ks0426 {
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
