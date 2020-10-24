@@ -26,7 +26,7 @@ export function initialisation (): void {
 //% blockId=Ks0426vitesseRG
 //% block="roue gauche à $vitesse"
 export function vitesse_roue_gauche (vitesse: number = 50): void {
-    vitesse |= 0
+    vitesse |= 50
     vitesseRG = vitesse
     if (vitesseRG >= 0) {
         if (vitesseRG > 100) {
@@ -44,8 +44,8 @@ export function vitesse_roue_gauche (vitesse: number = 50): void {
 }
 //% blockId=Ks0426vitesseRD
 //% block="roue droite à $vitesse"
-export function vitesse_roue_droite (vitesse: number): void{
-    vitesse |=50
+export function vitesse_roue_droite (vitesse: number = 50): void{
+    vitesse |= 50
     let vitesseRD = vitesse
     let sens = 0
     if (vitesseRD >= 0) {
