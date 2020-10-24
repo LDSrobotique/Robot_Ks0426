@@ -2,7 +2,6 @@
 namespace Ks0426 {
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
- * vitesse; eg: 50
  */
 //% blockId=Ks0426initialisation
 //% block="initialisation"
@@ -36,7 +35,8 @@ function fixVitesse (vitesse: number) {
 }
 //% blockId=Ks0426vitesseRG
 //% block="roue gauche à $vitesse"
-export function roueG (vitesse: number = 50): void {
+//% vitesse.defl=50
+export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
 }
