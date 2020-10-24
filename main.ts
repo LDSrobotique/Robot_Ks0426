@@ -25,8 +25,8 @@ export function initialisation (): void {
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
 //% blockId=Ks0426vitesseRG
 //% block="roue gauche à $vitesse"
-export function vitesse_roue_gauche (vitesse: number = 50): void {
-    vitesse |= 50
+export function vitesse_roue_gauche (vitesse: number): void {
+    vitesse |= 0
     vitesseRG = vitesse
     if (vitesseRG >= 0) {
         if (vitesseRG > 100) {
@@ -44,7 +44,7 @@ export function vitesse_roue_gauche (vitesse: number = 50): void {
 }
 //% blockId=Ks0426vitesseRD
 //% block="roue droite à $vitesse"
-export function vitesse_roue_droite (vitesse: number = 50): void {
+export function vitesse_roue_droite (vitesse: number): void {
     vitesse |= 50
     let vitesseRD = vitesse
     let sens = 0
