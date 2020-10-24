@@ -86,6 +86,8 @@ export function stopper ():void {
 export function onEvent(handler: () => void) {
     handler();
 }
-
+function handler ():void {
+    roueD(50)
+}
 let strip: neopixel.Strip = null
 }
