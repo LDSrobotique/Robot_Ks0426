@@ -11,7 +11,11 @@ namespace Ks0426 {
 //% block="initialisation"
 //% group="Démarrage"
 export function initialisation (): void {
-    basic.clearScreen()
+    // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
+    pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
+    pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
+    // Rendre tous les Pins utilisables par le robot
+    led.enable(false)
     // Initialiser les LEDs RGB et les moteurs
     PCA9685.reset(67)
     basic.pause(1000)
@@ -105,6 +109,18 @@ export function distanceObs (): number {
 //% group="Capteurs"
 export function obstacleF (): boolean {
     if (distanceObs() < 10) { return true } else { return false }
+}
+//% blockId=Ks0426obstacleG
+//% block="obstacle à gauche"
+//% group="Capteurs"
+export function obstacleG (): boolean {
+    if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
+}
+//% blockId=Ks0426obstacleD
+//% block="obstacle à droite"
+//% group="Capteurs"
+export function obstacleD (): boolean {
+    if (pins.digitalReadPin(DigitalPin.P11) == 0) return true; else return false
 }
 let strip: neopixel.Strip = null
 }
