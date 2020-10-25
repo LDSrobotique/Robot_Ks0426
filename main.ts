@@ -6,7 +6,7 @@ namespace Ks0426 {
 //% blockId=Ks0426initialisation
 //% block="initialisation"
 export function initialisation (): void {
-    led.enable(false)
+    basic.clearScreen()
     // Initialiser les LEDs RGB et les moteurs
     PCA9685.reset(67)
     basic.pause(1000)
@@ -76,15 +76,16 @@ export function tournerG (vitesse: number): void{
 }
 //% blockId=Ks0426stopper
 //% block="stopper le mouvement"
-export function stopper ():void {
+export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, 0, 67)
 }
-//% block="on event"
-export function onEvent(handler: () => void) {
-    handler();
+//% blockId=Ks0426distanceObs
+//% block="distance obstacle devant"
+export function distanceObs(): number {
+    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
 }
 let strip: neopixel.Strip = null
 }

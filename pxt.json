@@ -6,7 +6,8 @@
         "core": "*",
         "radio": "*",
         "neopixel": "github:microsoft/pxt-neopixel#v0.7.3",
-        "pxt-pca9685": "github:jdarling/pxt-pca9685#v0.0.5"
+        "pxt-pca9685": "github:jdarling/pxt-pca9685#v0.0.5",
+        "pxt-sonar": "github:microsoft/pxt-sonar#v0.0.5"
     },
     "files": [
         "main.ts",
