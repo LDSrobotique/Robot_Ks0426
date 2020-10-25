@@ -1,10 +1,15 @@
-//% color="#04B404" weight=100
-namespace Ks0426 {
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
+//% color="#04B404" weight=100
+//% groups="['Démarrage', 'Moteurs', 'Capteurs']"
+namespace Ks0426 {
+/**
+ * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
+ */
 //% blockId=Ks0426initialisation
 //% block="initialisation"
+//% group="Démarrage"
 export function initialisation (): void {
     basic.clearScreen()
     // Initialiser les LEDs RGB et les moteurs
@@ -84,8 +89,13 @@ export function stopper (): void {
 }
 //% blockId=Ks0426distanceObs
 //% block="distance obstacle devant"
-export function distanceObs(): number {
+export function distanceObs (): number {
     return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
+}
+//% blockId=Ks0426obstacleF
+//% block="obstacle devant"
+export function obstacleD (): boolean {
+    if (distanceObs() < 10) { return true } else { return false }
 }
 let strip: neopixel.Strip = null
 }
