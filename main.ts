@@ -102,7 +102,7 @@ export function stopper (): void {
 //% block="distance obstacle devant"
 //% group="Capteurs"
 export function distanceObs (): number {
-    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.MicroSeconds)
+    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
 }
 let strip: neopixel.Strip = null
 }
