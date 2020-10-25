@@ -103,7 +103,7 @@ export function distanceObs (): number {
 //% blockId=Ks0426obstacleF
 //% block="obstacle devant"
 //% group="Capteurs"
-export function obstacleD (): boolean {
+export function obstacleF (): boolean {
     if (distanceObs() < 10) { return true } else { return false }
 }
 let strip: neopixel.Strip = null
