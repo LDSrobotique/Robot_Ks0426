@@ -98,29 +98,5 @@ export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, 0, 67)
 }
-//% blockId=Ks0426distanceObs
-//% block="distance obstacle devant"
-//% group="Capteurs"
-export function distanceObs (): number {
-    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
-}
-//% blockId=Ks0426obstacleF
-//% block="obstacle devant"
-//% group="Capteurs"
-export function obstacleF (): boolean {
-    if (distanceObs() < 10) { return true } else { return false }
-}
-//% blockId=Ks0426obstacleG
-//% block="obstacle à gauche"
-//% group="Capteurs"
-export function obstacleG (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
-}
-//% blockId=Ks0426obstacleD
-//% block="obstacle à droite"
-//% group="Capteurs"
-export function obstacleD (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
-}
 let strip: neopixel.Strip = null
 }
