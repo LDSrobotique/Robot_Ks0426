@@ -11,14 +11,16 @@ namespace Ks0426 {
 //% block="initialisation"
 //% group="Démarrage"
 export function initialisation (): void {
-    pins.analogSetPitchPin(AnalogPin.P0)
+    // Rendre tous les Pins utilisables par le robot
+    //led.enable(false)
+    // Pour le port série ?
+    //pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
-    // Rendre tous les Pins utilisables par le robot
-    led.enable(false)
     // Initialiser les LEDs RGB et les moteurs
-    PCA9685.reset(67)
+    // PCA9685.reset(67)
+    PCA9685.init(67, 0)
     basic.pause(1000)
     // Pour éteindre les LEDs RGB
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, 100, 67)
@@ -103,8 +105,7 @@ export function stopper (): void {
 //% block="distance obstacle devant"
 //% group="Capteurs"
 export function distanceObs (): number {
-    let distance = sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
-    return distance
+    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
 }
 let strip: neopixel.Strip = null
 }
