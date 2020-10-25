@@ -113,5 +113,17 @@ export function distanceObs (): number {
 export function obstacleF (): boolean {
     if (distanceObs() < 10) { return true } else { return false }
 }
+//% blockId=Ks0426obstacleG
+//% block="obstacle à gauche"
+//%"Capteurs"
+export function obstacleG (): boolean {
+    if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
+}
+//% blockId=Ks0426obstacleD
+//% block="obstacle à droite"
+//%="Capteurs"
+export function obstacleD (): boolean {
+    if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
+}
 let strip: neopixel.Strip = null
 }
