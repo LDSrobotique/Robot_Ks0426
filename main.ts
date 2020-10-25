@@ -45,6 +45,12 @@ function fixVitesse (vitesse: number) {
     if (vitesse > 100 || vitesse < -100) { return 100 }
     else { return Math.abs(vitesse)}
 }
+/**
+ * Pour commander la roue gauche
+ * -100 < vitesse < 100
+ * vitesse négative pour reculer
+ * vitesse positive pour avancer
+ */
 //% blockId=Ks0426roueG
 //% block="roue gauche à $vitesse"
 //% vitesse.defl=50
@@ -53,6 +59,9 @@ export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
 }
+/**
+ * Pour commander le roue droite
+ */
 //% blockId=Ks0426roueD
 //% block="roue droite à $vitesse"
 //% vitesse.defl=50
@@ -92,6 +101,9 @@ export function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
 }
+/**
+ * Pour arrêter le robot
+ */
 //% blockId=Ks0426stopper
 //% block="stopper le mouvement"
 //% group="Moteurs"
@@ -101,24 +113,36 @@ export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, 0, 67)
 }
+/**
+ * Retourne la distance de l'obstacle (en cm) qui se trouve devant
+ */
 //% blockId=Ks0426distanceObs
 //% block="distance obstacle devant"
 //% group="Capteurs"
 export function distanceObs (): number {
     return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
 }
+/**
+ * Retourne vrai si obstacle à moins de 10cm détecté devant
+ */
 //% blockId=Ks0426obstacleF
 //% block="obstacle devant"
 //% group="Capteurs"
 export function obstacleF (): boolean {
     if (distanceObs() < 10) { return true } else { return false }
 }
+/**
+ * Retourne vrai s'il y a un obstacle sur la gauche
+ */
 //% blockId=Ks0426obstacleG
 //% block="obstacle à gauche"
 //%"Capteurs"
 export function obstacleG (): boolean {
     if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
 }
+/**
+ * Retourne vrai s'il y a un obstacle sur la droite
+ */
 //% blockId=Ks0426obstacleD
 //% block="obstacle à droite"
 //%="Capteurs"
