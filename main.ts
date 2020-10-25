@@ -11,6 +11,7 @@ namespace Ks0426 {
 //% block="initialisation"
 //% group="Démarrage"
 export function initialisation (): void {
+    pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
@@ -102,7 +103,8 @@ export function stopper (): void {
 //% block="distance obstacle devant"
 //% group="Capteurs"
 export function distanceObs (): number {
-    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
+    let distance = sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
+    return distance
 }
 let strip: neopixel.Strip = null
 }
