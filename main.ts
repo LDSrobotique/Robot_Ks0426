@@ -41,6 +41,7 @@ function fixVitesse (vitesse: number) {
 //% blockId=Ks0426roueG
 //% block="roue gauche à $vitesse"
 //% vitesse.defl=50
+//% group="Moteurs"
 export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
@@ -48,6 +49,7 @@ export function roueG (vitesse: number): void {
 //% blockId=Ks0426roueD
 //% block="roue droite à $vitesse"
 //% vitesse.defl=50
+//% group="Moteurs"
 export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
@@ -55,6 +57,7 @@ export function roueD (vitesse: number): void {
 //% blockId=Ks0426avancer
 //% block="avancer à $vitesse"
 //% vitesse.defl=50
+//% group="Moteurs"
 export function avancer (vitesse: number): void {
     roueG(vitesse)
     roueD(vitesse)
@@ -62,12 +65,14 @@ export function avancer (vitesse: number): void {
 //% blockId=Ks0426reculer
 //% block="reculer à $vitesse"
 //% vitesse.defl=50
+//% group="Moteurs"
 export function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
 //% blockId=Ks0426tournerD
 //% block="tourner à droite à $vitesse"
 //% vitesse.defl=50
+//% group="Moteurs"
 export function tournerD (vitesse: number): void {
     roueG(vitesse)
     roueD(-vitesse)
@@ -75,12 +80,14 @@ export function tournerD (vitesse: number): void {
 //% blockId=Ks0426tournerG
 //% block="tourner à gauche à $vitesse"
 //% vitesse.defl=50
+//% group="Moteurs"
 export function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
 }
 //% blockId=Ks0426stopper
 //% block="stopper le mouvement"
+//% group="Moteurs"
 export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, 0, 67)
@@ -89,11 +96,13 @@ export function stopper (): void {
 }
 //% blockId=Ks0426distanceObs
 //% block="distance obstacle devant"
+//% group="Capteurs"
 export function distanceObs (): number {
     return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
 }
 //% blockId=Ks0426obstacleF
 //% block="obstacle devant"
+//% group="Capteurs"
 export function obstacleD (): boolean {
     if (distanceObs() < 10) { return true } else { return false }
 }
