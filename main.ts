@@ -6,7 +6,7 @@ namespace Ks0426 {
 //% blockId=Ks0426initialisation
 //% block="initialisation"
 export function initialisation (): void {
-    basic.clearScreen()
+    led.enable(false)
     // Initialiser les LEDs RGB et les moteurs
     PCA9685.reset(67)
     basic.pause(1000)
