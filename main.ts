@@ -120,7 +120,7 @@ export function obstacleG (): boolean {
 //% block="obstacle à droite"
 //% group="Capteurs"
 export function obstacleD (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P11) == 0) return true; else return false
+    if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
 }
 let strip: neopixel.Strip = null
 }
