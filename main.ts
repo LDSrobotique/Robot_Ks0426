@@ -10,15 +10,12 @@ enum irSol {
     //% block="blanche"
     blanche }
 //% color="#04B404" icon="\uf17b"
-//% groups="['Démarrage', 'Moteurs', 'Capteurs']"
+//% groups="['Moteurs', 'Capteurs']"
 namespace Ks0426 {
 /**
  * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
  */
-//% blockId=Ks0426initialisation
-//% block="initialisation"
-//% group="Démarrage"
-export function initialisation (): void {
+function initialisation (): void {
     // Rendre tous les Pins utilisables par le robot
     //led.enable(false)
     // Pour le port série ?
@@ -135,6 +132,20 @@ export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, 0, 67)
 }
+// 
+/*function ping(trig: DigitalPin, echo: DigitalPin): number {
+        // envoyer pulse
+        pins.setPull(trig, PinPullMode.PullNone);
+        pins.digitalWritePin(trig, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(trig, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(trig, 0);
+
+        // lire pulse
+        const d = pins.pulseIn(echo, PulseValue.High, 500 * 58);
+        return Math.idiv(d, 58)
+}*/
 /**
  * Retourne la distance de l'obstacle (en cm) qui se trouve devant
  */
@@ -143,7 +154,18 @@ export function stopper (): void {
 //% block="distance obstacle devant"
 //% group="Capteurs"
 export function distanceObs (): number {
-    return sonar.ping(DigitalPin.P14, DigitalPin.P15, PingUnit.Centimeters)
+        // envoyer pulse
+        pins.setPull(DigitalPin.P14, PinPullMode.PullNone);
+        pins.digitalWritePin(DigitalPin.P14, 0);
+        control.waitMicros(2);
+        pins.digitalWritePin(DigitalPin.P14, 1);
+        control.waitMicros(10);
+        pins.digitalWritePin(DigitalPin.P14, 0);
+
+        // lire pulse
+        //const d = pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58);
+        return Math.idiv(pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58), 58)
+   // return ping(DigitalPin.P14, DigitalPin.P15)
 }
 /**
  * Retourne vrai si obstacle à moins de 10cm détecté devant
@@ -218,5 +240,6 @@ export function surface(irSurface: irSol): boolean {
             break
     }
 }
+initialisation()
 let strip: neopixel.Strip = null
 }
