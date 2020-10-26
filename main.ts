@@ -1,7 +1,7 @@
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
-//% color="#04B404" weight=100
+//% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Moteurs', 'Capteurs']"
 namespace Ks0426 {
 /**
@@ -52,6 +52,7 @@ function fixVitesse (vitesse: number) {
  * - vitesse positive pour avancer
  */
 //% blockId=Ks0426roueG
+//% weight=30
 //% block="roue gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
@@ -65,6 +66,7 @@ export function roueG (vitesse: number): void {
  * Pour commander le roue droite
  */
 //% blockId=Ks0426roueD
+//% weight=20
 //% block="roue droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
@@ -74,6 +76,7 @@ export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
 //% blockId=Ks0426avancer
+//% weight=70
 //% block="avancer à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
@@ -83,6 +86,7 @@ export function avancer (vitesse: number): void {
     roueD(vitesse)
 }
 //% blockId=Ks0426reculer
+//% weight=40
 //% block="reculer à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
@@ -91,6 +95,7 @@ export function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
 //% blockId=Ks0426tournerD
+//% weight=50
 //% block="tourner à droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
@@ -100,6 +105,7 @@ export function tournerD (vitesse: number): void {
     roueD(-vitesse)
 }
 //% blockId=Ks0426tournerG
+//% weight=60
 //% block="tourner à gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
@@ -112,6 +118,7 @@ export function tournerG (vitesse: number): void{
  * Pour arrêter le robot
  */
 //% blockId=Ks0426stopper
+//% weight=10
 //% block="stopper le mouvement"
 //% group="Moteurs"
 export function stopper (): void {
@@ -124,6 +131,7 @@ export function stopper (): void {
  * Retourne la distance de l'obstacle (en cm) qui se trouve devant
  */
 //% blockId=Ks0426distanceObs
+//% weight=40
 //% block="distance obstacle devant"
 //% group="Capteurs"
 export function distanceObs (): number {
@@ -133,6 +141,7 @@ export function distanceObs (): number {
  * Retourne vrai si obstacle à moins de 10cm détecté devant
  */
 //% blockId=Ks0426obstacleF
+//% weight=30
 //% block="obstacle devant"
 //% group="Capteurs"
 export function obstacleF (): boolean {
@@ -142,6 +151,7 @@ export function obstacleF (): boolean {
  * Retourne vrai s'il y a un obstacle sur la gauche
  */
 //% blockId=Ks0426obstacleG
+//% weight=20
 //% block="obstacle à gauche"
 //%"Capteurs"
 export function obstacleG (): boolean {
@@ -151,6 +161,7 @@ export function obstacleG (): boolean {
  * Retourne vrai s'il y a un obstacle sur la droite
  */
 //% blockId=Ks0426obstacleD
+//% weight=10
 //% block="obstacle à droite"
 //%="Capteurs"
 export function obstacleD (): boolean {
