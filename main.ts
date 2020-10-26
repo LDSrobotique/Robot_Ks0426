@@ -9,6 +9,42 @@ enum irSol {
     noire,
     //% block="blanche"
     blanche }
+enum _touche {
+    //% block="flêche Haut"
+    irTH=70,
+    //% block="flêche Bas"
+    irTB=21,
+    //% block="flêche Gauche"
+    irTG=68,
+    //% block="flêche Droite"
+    irTD=67,
+    //% block="OK"
+    irTOK=64,
+    //% block="1"
+    ir1=22,
+    //% block="2"
+    ir2=25,
+    //% block="3"
+    ir3=13,
+    //% block="4"
+    ir4=12,
+    //% block="5"
+    ir5=24,
+    //% block="6"
+    ir6=94,
+    //% block="7"
+    ir7=8,
+    //% block="8"
+    ir8=28,
+    //% block="9"
+    ir9=90,
+    //% block="*"
+    irE=66,
+    //% block="0"
+    ir0=82,
+    //% block="#"
+    irD=74
+}
 //% color="#04B404" icon="\uf17b"
 //% groups="['Moteurs', 'Capteurs']"
 namespace Ks0426 {
@@ -223,6 +259,18 @@ export function surface(irSurface: irSol): boolean {
             break
     }
 }
+//% blochId=Ks0426telecommande
+//% weight=7
+//% block="touche télécommande = $irTouche"
+//% group="Capteurs"
+export function telecommande(irTouche: _touche): boolean {
+    if (maqueen.IR_read() == irTouche) {
+        return true
+    } else {
+        return false
+    }
+}
+// au démarrage
 initialisation()
 let strip: neopixel.Strip = null
 }
