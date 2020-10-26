@@ -2,7 +2,13 @@
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
 enum irLN { gauche, droite }
-enum irSol { vide, noire, blanche }
+enum irSol {
+    //% block="du vide"
+    vide,
+    //% block="noire"
+    noire,
+    //% block="blanche"
+    blanche }
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Moteurs', 'Capteurs']"
 namespace Ks0426 {
@@ -187,6 +193,11 @@ export function ligneNoire (irLigneN: irLN): boolean {
             break
     }
 }
+/**
+ * Retourne vrai s'il y a du vide,
+ * - une surface foncée ou
+ * - une surface claire devant le robot
+ */
 //% blockId=Ks0426surfaceN
 //% weight=8
 //% block="[Capteur de sol] surface $irSurface"
