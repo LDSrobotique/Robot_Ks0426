@@ -2,7 +2,7 @@
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
 enum irLN { gauche, droite }
-enum irSol { le_vide, foncee, claire }
+enum irSol { vide, noire, blanche }
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Moteurs', 'Capteurs']"
 namespace Ks0426 {
@@ -191,16 +191,17 @@ export function ligneNoire (irLigneN: irLN): boolean {
 //% weight=8
 //% block="[Capteur de sol] surface $irSurface"
 //% group="Capteurs"
-export function surfaceN(irSurface: irSol): boolean {
+export function surface(irSurface: irSol): boolean {
     switch (irSurface) {
-        case irSol.le_vide : // || irSol.foncee : // surface vide ou foncée
+        case irSol.vide : // surface vide ou foncée
             if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1)
-                { return true } else { return false}
+                { return true } else { return false }
             break
-        case irSol.foncee :
-            return true
+        case irSol.noire :
+            if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1)
+                { return true } else { return false }
             break
-        case irSol.claire : // surface claire
+        case irSol.blanche : // surface claire
             if (pins.digitalReadPin(DigitalPin.P12) == 0 || pins.digitalReadPin(DigitalPin.P13) == 0)
                 { return true } else { return false }
             break
