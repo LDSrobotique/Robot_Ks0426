@@ -172,7 +172,7 @@ export function obstacleD (): boolean {
  * Suiveur de ligne
  * - Retourne vrai si détection d'une ligne noire
  */
-//% blockId=irLigneN
+//% blockId=Ks0426irLigneN
 //% weight=9
 //% block="[Suiveur de ligne] capteur $irLigneN au dessus d'une ligne noire"
 //% group="Capteurs"
@@ -185,6 +185,14 @@ export function ligneNoire (irLigneN: irLN): boolean {
         if (pins.digitalReadPin(DigitalPin.P12) == 1) { return true } else { return false }
         break
     }
+}
+//% blockId=Ks0426surfaceN
+//% weight=8
+//% block="[Suiveur de ligne] surface noire"
+//% group="Capteurs"
+export function surfaceN(): boolean {
+    if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1) {
+        return true } else { return false}
 }
 let strip: neopixel.Strip = null
 }
