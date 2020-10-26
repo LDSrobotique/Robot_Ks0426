@@ -1,6 +1,7 @@
 /**
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
+enum irLN { gauche, droite }
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Moteurs', 'Capteurs']"
 namespace Ks0426 {
@@ -153,7 +154,7 @@ export function obstacleF (): boolean {
 //% blockId=Ks0426obstacleG
 //% weight=20
 //% block="obstacle à gauche"
-//%"Capteurs"
+//% group="Capteurs"
 export function obstacleG (): boolean {
     if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
 }
@@ -163,9 +164,27 @@ export function obstacleG (): boolean {
 //% blockId=Ks0426obstacleD
 //% weight=10
 //% block="obstacle à droite"
-//%="Capteurs"
+//% group="Capteurs"
 export function obstacleD (): boolean {
     if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
+}
+/**
+ * Suiveur de ligne
+ * - Retourne vrai si détection d'une ligne noire
+ */
+//% blockId=irLigneN
+//% weight=9
+//% block="[Suiveur de ligne] capteur $irLigneN au dessus d'une ligne noire"
+//% group="Capteurs"
+export function ligneNoire (irLigneN: irLN): boolean {
+    switch (irLigneN) {
+        case irLN.gauche :
+        if (pins.digitalReadPin(DigitalPin.P13) == 1) { return true } else { return false }
+        break
+        case irLN.droite :
+        if (pins.digitalReadPin(DigitalPin.P12) == 1) { return true } else { return false }
+        break
+    }
 }
 let strip: neopixel.Strip = null
 }
