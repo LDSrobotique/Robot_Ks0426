@@ -47,14 +47,16 @@ function fixVitesse (vitesse: number) {
 }
 /**
  * Pour commander la roue gauche
- * -100 < vitesse < 100
- * vitesse négative pour reculer
- * vitesse positive pour avancer
+ * - -100 < vitesse < 100
+ * - vitesse négative pour reculer
+ * - vitesse positive pour avancer
  */
 //% blockId=Ks0426roueG
-//% block="roue gauche à $vitesse"
+//% block="roue gauche à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
+//% 
 export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
@@ -63,7 +65,8 @@ export function roueG (vitesse: number): void {
  * Pour commander le roue droite
  */
 //% blockId=Ks0426roueD
-//% block="roue droite à $vitesse"
+//% block="roue droite à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
 export function roueD (vitesse: number): void {
@@ -71,7 +74,8 @@ export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
 //% blockId=Ks0426avancer
-//% block="avancer à $vitesse"
+//% block="avancer à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
 export function avancer (vitesse: number): void {
@@ -79,14 +83,16 @@ export function avancer (vitesse: number): void {
     roueD(vitesse)
 }
 //% blockId=Ks0426reculer
-//% block="reculer à $vitesse"
+//% block="reculer à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
 export function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
 //% blockId=Ks0426tournerD
-//% block="tourner à droite à $vitesse"
+//% block="tourner à droite à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
 export function tournerD (vitesse: number): void {
@@ -94,7 +100,8 @@ export function tournerD (vitesse: number): void {
     roueD(-vitesse)
 }
 //% blockId=Ks0426tournerG
-//% block="tourner à gauche à $vitesse"
+//% block="tourner à gauche à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
 export function tournerG (vitesse: number): void{
