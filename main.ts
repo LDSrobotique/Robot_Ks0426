@@ -218,5 +218,8 @@ export function surface(irSurface: irSol): boolean {
             break
     }
 }
+maqueen.IR_callbackUser(function ({ myparam: message }) {
+	
+})
 let strip: neopixel.Strip = null
 }
