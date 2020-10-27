@@ -280,6 +280,8 @@ export function telecommande(irTouche: _touche): boolean {
 //% weight=200
 //% block="allumer RGB $led5 $led6 $led7"
 //% group="Moteurs"
+// led5 => LED Bleu, led6 => LED Vert et led7 => LED Rouge
+// 0 => allumé à 100%, 75 => (100 - 75)% allumé et 100 => éteint (0% allumé)
 export function allumerRGB (led5: number, led6: number, led7: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, led5, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, led6, 67)
