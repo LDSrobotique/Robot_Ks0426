@@ -67,6 +67,8 @@ enum _cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC }
+let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
+//let strip: neopixel.Strip = null
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
@@ -77,16 +79,16 @@ namespace Ks0426 {
 //% weight=30
 //% block="initialisation"
 //% group="Démarrage"
-function initialisation (): void {
+export function initialisation (): void {
     // Rendre tous les Pins utilisables par le robot
-    led.enable(false)
+    //led.enable(false)
     // Pour le port série ?
-    pins.analogSetPitchPin(AnalogPin.P0)
+    //pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
     // Initialiser la bande à LEDs
-    strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
+    //strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
     strip.showRainbow(1, 360)
     basic.pause(2000)
     strip.clear()
@@ -378,7 +380,10 @@ export function allumerRVB (rouge: number, vert: number, bleu: number): void {
 //% weight=5
 //% block="il fait nuit"
 export function nuitOK(): boolean {
-    if (pins.analogReadPin(AnalogPin.P1) < 200) { return true } else { return false }
+    if (pins.analogReadPin(AnalogPin.P1) < 200)
+        { strip.showColor(neopixel.colors(NeoPixelColors.Red)); return true }
+    else { strip.showColor(neopixel.colors(NeoPixelColors.Black)); return false }
+    
 }
 //% blochId=Ks0426cellPhoto
 //% group="Capteurs"
@@ -388,6 +393,7 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 // au démarrage
-let strip: neopixel.Strip = null
+//let strip: neopixel.Strip = null
+
 initialisation
 }
