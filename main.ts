@@ -43,7 +43,30 @@ enum _touche {
     //% block="0"
     ir0=82,
     //% block="#"
-    irD=74
+    irD=74 }
+enum _cRGB {
+    //% block="Blanc"
+    blanc,
+    //% block="Rouge"
+    rouge,
+    //% block="Rouge clair"
+    rougeC,
+    //% block="Vert"
+    vert,
+    //% block="Vert clair"
+    vertC,
+    //% block="Bleu"
+    bleu,
+    //% block="Bleu clair"
+    bleuC,
+    //% block="Rose"
+    rose,
+    //% block="Rose clair"
+    roseC,
+    //% block="Jaune"
+    jaune,
+    //% block="Jaune clair"
+    jauneC
 }
 //% color="#04B404" icon="\uf17b"
 //% groups="['Moteurs', 'Capteurs']"
@@ -276,16 +299,36 @@ export function telecommande(irTouche: _touche): boolean {
 /**
  * Gestion des 2 LEDs RGB
  */
-//% blochId=Ks0426ledRGB
-//% weight=200
-//% block="allumer RGB $led5 $led6 $led7"
-//% group="Moteurs"
 // led5 => LED Bleu, led6 => LED Vert et led7 => LED Rouge
 // 0 => allumé à 100%, 75 => (100 - 75)% allumé et 100 => éteint (0% allumé)
-export function allumerRGB (led5: number, led6: number, led7: number): void {
+function allumerRGB (led7: number, led6: number, led5: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, led5, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, led6, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
+}
+//% blochId=Ks0426ledRGB
+//% weight=4
+//% block="les LED RGB s'éteignent"
+//% group="Capteurs"
+export function eteindreLED (): void {
+    allumerRGB (100, 100, 100)
+}
+//% blochId=Ks0426ledRGB
+//% weight=6
+//% block="les LED RGB s'allume en $couleur"
+//% group="Capteurs"
+export function allumerLED (couleur: _cRGB): void {
+    switch (couleur) {
+        case _cRGB.blanc :
+            allumerRGB (0, 0, 0)
+            break
+        case _cRGB.rouge :
+            allumerRGB (0, 100, 100)
+            break
+        case _cRGB.rougeC : // surface claire
+            allumerRGB (75, 100, 100)
+            break
+    }
 }
 // au démarrage
 initialisation()
