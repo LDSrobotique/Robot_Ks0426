@@ -88,9 +88,6 @@ function initialisation (): void {
     basic.pause(1000)
     // Éteindre les LEDs RGB
     eteindreLED()
-    //PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, 100, 67)
-    //PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, 100, 67)
-    //PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, 100, 67)
     // Initialiser la bande à LEDs
     strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
     strip.showRainbow(1, 360)
@@ -357,6 +354,19 @@ export function allumerLED (couleur: _cRGB): void {
             allumerRGB (75, 75, 100)
             break
     }
+}
+//% blochId=Ks0426ledRGBcTous
+//% weight=5
+//% block="les LED RGB : Rouge $rouge \\%, Vert $vert \\%, Bleu $bleu \\%"
+//% rouge.min=0 rouge.max=100
+//% rouge.shadow=turnRatioPicker
+//% vert.min=0 vert.max=100
+//% vert.shadow=turnRatioPicker
+//% bleu.min=0 bleu.max=100
+//% bleu.shadow=turnRatioPicker
+//% group="LED"
+export function allumerRVB (rouge: number, vert: number, bleu: number): void {
+
 }
 // au démarrage
 initialisation()
