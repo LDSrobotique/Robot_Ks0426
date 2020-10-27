@@ -73,17 +73,12 @@ enum _cRGB {
 //basic.pause(2000)
 //strip.clear()
 //strip.show()
-//% color="#04B404" icon="\uf17b"
-//% groups="['Moteurs', 'Capteurs', 'LED']"
-namespace Ks0426 {
-/**
- * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
- */
+
 function initialisation (): void {
     // Rendre tous les Pins utilisables par le robot
-    //led.enable(false)
+    led.enable(false)
     // Pour le port série ?
-    //pins.analogSetPitchPin(AnalogPin.P0)
+    pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
@@ -98,8 +93,15 @@ function initialisation (): void {
     PCA9685.init(67, 0)
     basic.pause(1000)
     // Éteindre les LEDs RGB
-    eteindreLED()
+    Ks0426.eteindreLED()
 }
+
+//% color="#04B404" icon="\uf17b"
+//% groups="['Moteurs', 'Capteurs', 'LED']"
+namespace Ks0426 {
+/**
+ * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
+ */
 // La vitesse de la roue doit être comprise entre -100 et 100 inclus.
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
 // fixSens renvoie 0 pour faire avancer la roue, 100 pour la faire reculer
@@ -391,6 +393,6 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 // au démarrage
+}
 let strip: neopixel.Strip = null
 initialisation
-}
