@@ -304,14 +304,14 @@ function allumerRGB (led7: number, led6: number, led5: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
 }
 //% blochId=Ks0426ledRGB
-//% weight=4
+//% weight=80
 //% block="les LED RGB s'éteignent"
 //% group="LED"
 export function eteindreLED (): void {
     allumerRGB (100, 100, 100)
 }
 //% blochId=Ks0426ledRGB
-//% weight=6
+//% weight=100
 //% block="les LED RGB s'allume en $couleur"
 //% group="LED"
 export function allumerLED (couleur: _cRGB): void {
@@ -356,14 +356,8 @@ export function allumerLED (couleur: _cRGB): void {
 }
 //% blochId=Ks0426ledRGBcTous
 //% group="LED"
-//% weight=5
+//% weight=90
 //% block="les LED RGB : Rouge $rouge \\%, Vert $vert \\%, Bleu $bleu \\%"
-//% rouge.min=0 rouge.max=100
-//% rouge.shadow=turnRatioPicker
-//% vert.min=0 vert.max=100
-//% vert.shadow=turnRatioPicker
-//% bleu.min=0 bleu.max=100
-//% bleu.shadow=turnRatioPicker
 export function allumerRVB (rouge: number, vert: number, bleu: number): void {
     if (rouge < 0) { rouge = 0 }
     if (rouge > 100) { rouge = 100 }
@@ -372,6 +366,23 @@ export function allumerRVB (rouge: number, vert: number, bleu: number): void {
     if (bleu < 0) { bleu = 0 }
     if (bleu > 100) { bleu = 100 }
     allumerRGB (100-rouge, 100-vert, 100-bleu)
+}
+/**
+ * Détection du jour
+ */
+//% blochId=Ks0426nuitOK
+//% group="Capteurs"
+//% weight=5
+//% block="il fait nuit"
+export function nuitOK(): boolean {
+    if (pins.analogReadPin(AnalogPin.P1) < 200) { return true } else { return false }
+}
+//% blochId=Ks0426cellPhoto
+//% group="Capteurs"
+//% weight=4
+//% block="lire la luminosité du lieu"
+export function luminosite(): number {
+    return pins.analogReadPin(AnalogPin.P1)
 }
 // au démarrage
 initialisation()
