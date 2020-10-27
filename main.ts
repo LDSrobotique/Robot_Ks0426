@@ -276,8 +276,11 @@ export function telecommande(irTouche: _touche): boolean {
 /**
  * Gestion des 2 LEDs RGB
  */
+//% blochId=Ks0426ledRGB
+//% weight=200
 //% block="allumer RGB $led5 $led6 $led7"
-function allumerRGB (led5: number, led6: number, led7: number): void {
+//% group="Moteurs"
+export function allumerRGB (led5: number, led6: number, led7: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, led5, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, led6, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
