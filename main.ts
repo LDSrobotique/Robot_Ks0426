@@ -67,6 +67,12 @@ enum _cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC }
+    // Initialiser la bande à LEDs
+//let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
+//strip.showRainbow(1, 360)
+//basic.pause(2000)
+//strip.clear()
+//strip.show()
 //% color="#04B404" icon="\uf17b"
 //% groups="['Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
@@ -81,18 +87,18 @@ function initialisation (): void {
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
-    // Initialiser les LEDs RGB et les moteurs
-    // PCA9685.reset(67)
-    PCA9685.init(67, 0)
-    basic.pause(1000)
-    // Éteindre les LEDs RGB
-    eteindreLED()
     // Initialiser la bande à LEDs
     strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
     strip.showRainbow(1, 360)
     basic.pause(2000)
     strip.clear()
     strip.show()
+    // Initialiser les LEDs RGB et les moteurs
+    // PCA9685.reset(67)
+    PCA9685.init(67, 0)
+    basic.pause(1000)
+    // Éteindre les LEDs RGB
+    eteindreLED()
 }
 // La vitesse de la roue doit être comprise entre -100 et 100 inclus.
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
@@ -385,6 +391,6 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 // au démarrage
-initialisation()
 let strip: neopixel.Strip = null
+initialisation
 }
