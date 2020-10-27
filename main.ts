@@ -66,8 +66,7 @@ enum _cRGB {
     //% block="Jaune"
     jaune,
     //% block="Jaune clair"
-    jauneC
-}
+    jauneC }
 //% color="#04B404" icon="\uf17b"
 //% groups="['Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
@@ -356,6 +355,7 @@ export function allumerLED (couleur: _cRGB): void {
     }
 }
 //% blochId=Ks0426ledRGBcTous
+//% group="LED"
 //% weight=5
 //% block="les LED RGB : Rouge $rouge \\%, Vert $vert \\%, Bleu $bleu \\%"
 //% rouge.min=0 rouge.max=100
@@ -364,9 +364,14 @@ export function allumerLED (couleur: _cRGB): void {
 //% vert.shadow=turnRatioPicker
 //% bleu.min=0 bleu.max=100
 //% bleu.shadow=turnRatioPicker
-//% group="LED"
 export function allumerRVB (rouge: number, vert: number, bleu: number): void {
-
+    if (rouge < 0) { rouge = 0 }
+    if (rouge > 100) { rouge = 100 }
+    if (vert < 0) { vert = 0 }
+    if (vert > 100) { vert = 100 }
+    if (bleu < 0) { bleu = 0 }
+    if (bleu > 100) { bleu = 100 }
+    allumerRGB (100-rouge, 100-vert, 100-bleu)
 }
 // au démarrage
 initialisation()
