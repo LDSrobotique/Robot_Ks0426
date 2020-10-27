@@ -67,13 +67,16 @@ enum _cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC }
-    // Initialiser la bande à LEDs
-//let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
-//strip.showRainbow(1, 360)
-//basic.pause(2000)
-//strip.clear()
-//strip.show()
-
+//% color="#04B404" icon="\uf17b"
+//% groups="['Démarrage', 'Moteurs', 'Capteurs', 'LED']"
+namespace Ks0426 {
+/**
+ * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
+ */
+//% blockId=Ks0426initialisation
+//% weight=30
+//% block="initialisation"
+//% group="Démarrage"
 function initialisation (): void {
     // Rendre tous les Pins utilisables par le robot
     led.enable(false)
@@ -95,13 +98,6 @@ function initialisation (): void {
     // Éteindre les LEDs RGB
     Ks0426.eteindreLED()
 }
-
-//% color="#04B404" icon="\uf17b"
-//% groups="['Moteurs', 'Capteurs', 'LED']"
-namespace Ks0426 {
-/**
- * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
- */
 // La vitesse de la roue doit être comprise entre -100 et 100 inclus.
 // Si la vitesse est positive alors la roue tourne pour avancer sinon la roue tourne en sens inverse.
 // fixSens renvoie 0 pour faire avancer la roue, 100 pour la faire reculer
@@ -126,7 +122,6 @@ function fixVitesse (vitesse: number) {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-//% 
 export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
@@ -393,6 +388,6 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 // au démarrage
-}
 let strip: neopixel.Strip = null
 initialisation
+}
