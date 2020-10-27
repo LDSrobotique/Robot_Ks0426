@@ -332,6 +332,30 @@ export function allumerLED (couleur: _cRGB): void {
         case _cRGB.vert :
             allumerRGB (100, 0, 100)
             break
+        case _cRGB.vertC :
+            allumerRGB (100, 75, 100)
+            break
+        case _cRGB.bleu :
+            allumerRGB (100, 100, 0)
+            break
+        case _cRGB.bleuC :
+            allumerRGB (100, 100, 75)
+            break
+        case _cRGB.bleuC :
+            allumerRGB (100, 100, 75)
+            break
+        case _cRGB.rose :
+            allumerRGB (0, 100, 0)
+            break
+        case _cRGB.roseC :
+            allumerRGB (75, 100, 75)
+            break
+        case _cRGB.jaune :
+            allumerRGB (0, 0, 100)
+            break
+        case _cRGB.jauneC :
+            allumerRGB (75, 75, 100)
+            break
     }
 }
 // au démarrage
