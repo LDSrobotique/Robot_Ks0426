@@ -259,6 +259,9 @@ export function surface(irSurface: irSol): boolean {
             break
     }
 }
+/**
+ * Gestion de la télécommande infrarouge
+ */
 //% blochId=Ks0426telecommande
 //% weight=7
 //% block="touche télécommande = $irTouche"
@@ -269,6 +272,15 @@ export function telecommande(irTouche: _touche): boolean {
     } else {
         return false
     }
+}
+/**
+ * Gestion des 2 LEDs RGB
+ */
+//% block="allumer RGB $led5 $led6 $led7"
+function allumerRGB (led5: number, led6: number, led7: number): void {
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, led5, 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, led6, 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
 }
 // au démarrage
 initialisation()
