@@ -69,7 +69,7 @@ enum _cRGB {
     jauneC
 }
 //% color="#04B404" icon="\uf17b"
-//% groups="['Moteurs', 'Capteurs']"
+//% groups="['Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
 /**
  * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
@@ -86,10 +86,11 @@ function initialisation (): void {
     // PCA9685.reset(67)
     PCA9685.init(67, 0)
     basic.pause(1000)
-    // Pour éteindre les LEDs RGB
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, 100, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, 100, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, 100, 67)
+    // Éteindre les LEDs RGB
+    eteindreLED()
+    //PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, 100, 67)
+    //PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, 100, 67)
+    //PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, 100, 67)
     // Initialiser la bande à LEDs
     strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
     strip.showRainbow(1, 360)
@@ -309,14 +310,14 @@ function allumerRGB (led7: number, led6: number, led5: number): void {
 //% blochId=Ks0426ledRGB
 //% weight=4
 //% block="les LED RGB s'éteignent"
-//% group="Capteurs"
+//% group="LED"
 export function eteindreLED (): void {
     allumerRGB (100, 100, 100)
 }
 //% blochId=Ks0426ledRGB
 //% weight=6
 //% block="les LED RGB s'allume en $couleur"
-//% group="Capteurs"
+//% group="LED"
 export function allumerLED (couleur: _cRGB): void {
     switch (couleur) {
         case _cRGB.blanc :
@@ -325,8 +326,11 @@ export function allumerLED (couleur: _cRGB): void {
         case _cRGB.rouge :
             allumerRGB (0, 100, 100)
             break
-        case _cRGB.rougeC : // surface claire
+        case _cRGB.rougeC :
             allumerRGB (75, 100, 100)
+            break
+        case _cRGB.vert :
+            allumerRGB (100, 0, 100)
             break
     }
 }
