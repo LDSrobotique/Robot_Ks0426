@@ -43,10 +43,32 @@ enum _touche {
     //% block="0"
     ir0=82,
     //% block="#"
-    irD=74
-}
+    irD=74 }
+enum _cRGB {
+    //% block="Blanc"
+    blanc,
+    //% block="Rouge"
+    rouge,
+    //% block="Rouge clair"
+    rougeC,
+    //% block="Vert"
+    vert,
+    //% block="Vert clair"
+    vertC,
+    //% block="Bleu"
+    bleu,
+    //% block="Bleu clair"
+    bleuC,
+    //% block="Rose"
+    rose,
+    //% block="Rose clair"
+    roseC,
+    //% block="Jaune"
+    jaune,
+    //% block="Jaune clair"
+    jauneC }
 //% color="#04B404" icon="\uf17b"
-//% groups="['Moteurs', 'Capteurs']"
+//% groups="['Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
 /**
  * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
@@ -63,10 +85,8 @@ function initialisation (): void {
     // PCA9685.reset(67)
     PCA9685.init(67, 0)
     basic.pause(1000)
-    // Pour éteindre les LEDs RGB
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, 100, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, 100, 67)
-    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, 100, 67)
+    // Éteindre les LEDs RGB
+    eteindreLED()
     // Initialiser la bande à LEDs
     strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
     strip.showRainbow(1, 360)
@@ -259,6 +279,9 @@ export function surface(irSurface: irSol): boolean {
             break
     }
 }
+/**
+ * Gestion de la télécommande infrarouge
+ */
 //% blochId=Ks0426telecommande
 //% weight=7
 //% block="touche télécommande = $irTouche"
@@ -269,6 +292,86 @@ export function telecommande(irTouche: _touche): boolean {
     } else {
         return false
     }
+}
+/**
+ * Gestion des 2 LEDs RGB
+ */
+// led5 => LED Bleu, led6 => LED Vert et led7 => LED Rouge
+// 0 => allumé à 100%, 75 => (100 - 75)% allumé et 100 => éteint (0% allumé)
+function allumerRGB (led7: number, led6: number, led5: number): void {
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED5, led5, 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED6, led6, 67)
+    PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
+}
+//% blochId=Ks0426ledRGB
+//% weight=4
+//% block="les LED RGB s'éteignent"
+//% group="LED"
+export function eteindreLED (): void {
+    allumerRGB (100, 100, 100)
+}
+//% blochId=Ks0426ledRGB
+//% weight=6
+//% block="les LED RGB s'allume en $couleur"
+//% group="LED"
+export function allumerLED (couleur: _cRGB): void {
+    switch (couleur) {
+        case _cRGB.blanc :
+            allumerRGB (0, 0, 0)
+            break
+        case _cRGB.rouge :
+            allumerRGB (0, 100, 100)
+            break
+        case _cRGB.rougeC :
+            allumerRGB (75, 100, 100)
+            break
+        case _cRGB.vert :
+            allumerRGB (100, 0, 100)
+            break
+        case _cRGB.vertC :
+            allumerRGB (100, 75, 100)
+            break
+        case _cRGB.bleu :
+            allumerRGB (100, 100, 0)
+            break
+        case _cRGB.bleuC :
+            allumerRGB (100, 100, 75)
+            break
+        case _cRGB.bleuC :
+            allumerRGB (100, 100, 75)
+            break
+        case _cRGB.rose :
+            allumerRGB (0, 100, 0)
+            break
+        case _cRGB.roseC :
+            allumerRGB (75, 100, 75)
+            break
+        case _cRGB.jaune :
+            allumerRGB (0, 0, 100)
+            break
+        case _cRGB.jauneC :
+            allumerRGB (75, 75, 100)
+            break
+    }
+}
+//% blochId=Ks0426ledRGBcTous
+//% group="LED"
+//% weight=5
+//% block="les LED RGB : Rouge $rouge \\%, Vert $vert \\%, Bleu $bleu \\%"
+//% rouge.min=0 rouge.max=100
+//% rouge.shadow=turnRatioPicker
+//% vert.min=0 vert.max=100
+//% vert.shadow=turnRatioPicker
+//% bleu.min=0 bleu.max=100
+//% bleu.shadow=turnRatioPicker
+export function allumerRVB (rouge: number, vert: number, bleu: number): void {
+    if (rouge < 0) { rouge = 0 }
+    if (rouge > 100) { rouge = 100 }
+    if (vert < 0) { vert = 0 }
+    if (vert > 100) { vert = 100 }
+    if (bleu < 0) { bleu = 0 }
+    if (bleu > 100) { bleu = 100 }
+    allumerRGB (100-rouge, 100-vert, 100-bleu)
 }
 // au démarrage
 initialisation()

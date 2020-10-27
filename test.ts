@@ -1,4 +1,12 @@
 // les tests vont ici ; cela ne sera pas compilé si ce paquet est utilisé en tant qu'extension.
+// LED RGB : Bleu Blanc Rouge
+Ks0426.allumerLED(_cRGB.bleu)
+basic.pause(2000)
+Ks0426.allumerLED(_cRGB.blanc)
+basic.pause(2000)
+Ks0426.allumerLED(_cRGB.rouge)
+basic.pause(2000)
+Ks0426.eteindreLED()
 basic.forever(function () {
     /* Test de déplacement du robot */
     // Si obstacle devant alors tourne à droite
