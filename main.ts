@@ -80,8 +80,8 @@ namespace Ks0426 {
 //% block="initialisation"
 //% group="Démarrage"
 export function initialisation (): void {
-    // Rendre tous les Pins utilisables par le robot
-    //led.enable(false)
+    // Réserver tous les Pins pour le robot
+    led.enable(false)
     // Pour le port série ?
     //pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
