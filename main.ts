@@ -117,8 +117,7 @@ namespace Ks0426 {
 export function initialisation (): void {
     // Réserver tous les Pins pour le robot
     led.enable(false)
-    // Pour le port série ?
-    //pins.analogSetPitchPin(AnalogPin.P0)
+    pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
@@ -343,7 +342,7 @@ export function surface(irSurface: irSol): boolean {
 /**
  * Gestion de la télécommande infrarouge
  */
-//% blochId=Ks0426telecommande
+//% blochId=Ks0426sTelecommande
 //% weight=7
 //% block="touche télécommande = $irTouche"
 //% group="Capteurs"
@@ -492,6 +491,21 @@ export function onEventOF(dOF: distanceOF, handler: () => void) {
                     if (distObs < 10) { handler(); }
                     break
             }
+            basic.pause(20)
+        }
+    })
+}
+/**
+ * Événement : touche télécommande appuyée
+ */
+//% blochId=Ks0426qTelecommande
+//% group="Événements"
+//% weight=80
+//% block="quand touche télécommande appuyée"
+export function onEventTelecommande(handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            if (maqueen.IR_read() > 0) { handler(); }
             basic.pause(20)
         }
     })
