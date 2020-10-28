@@ -67,8 +67,21 @@ enum _cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC }
+enum _distanceOF {
+    //% block="trop loin"
+    tropLoin,
+    //% block="loin"
+    loin,
+    //% block="trop près"
+    tropPres
+}
+enum _infrarouge {
+    //% block="gauche"
+    gauche,
+    //% block="droite"
+    droite
+}
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
-//let strip: neopixel.Strip = null
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
@@ -393,21 +406,53 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 /**
- * Événement : obstacle à gauche détecté
+ * Événement : obstacle à gauche ou à droite détecté
  */
-//% block="quand obstacle à gauche détecté"
-export function onEventOG(handler: () => void) {
+//% blochId=Ks0426onEventObsGD
+//% group="Événements"
+//% weight=90
+//% block="quand obstacle à $infrarouge"
+export function onEventOGD(infrarouge: _infrarouge, handler: () => void) {
     control.inBackground(function () {
-       // while (true) {
-            if (obstacleG()) {
-                handler();
+        while (true) {
+            switch (infrarouge) {
+                case _infrarouge.gauche :
+                    if (pins.digitalReadPin(DigitalPin.P2) == 0) { handler(); }
+                    break
+                case _infrarouge.droite :
+                    if (pins.digitalReadPin(DigitalPin.P11) == 0) { handler(); }
+                    break
             }
             basic.pause(20)
-      //  }
+        }
+    })
+}
+/**
+ * Événement : obstacle devant détecté
+ */
+//% blochId=Ks0426onEventObsF
+//% group="Événements"
+//% weight=100
+//% block="quand obstacle devant $distanceOF"
+export function onEventOF(distanceOF: _distanceOF, handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            const distObs = distanceObs();
+            switch (distanceOF) {
+                case _distanceOF.tropLoin :
+                    if (distObs > 20) { handler(); }
+                    break
+                case _distanceOF.loin :
+                    if (distObs >= 10 && distObs <= 20) { handler(); }
+                    break
+                case _distanceOF.tropPres :
+                    if (distObs < 10) { handler(); }
+                    break
+            }
+            basic.pause(20)
+        }
     })
 }
 // au démarrage
-// let strip: neopixel.Strip = null
-
 initialisation
 }
