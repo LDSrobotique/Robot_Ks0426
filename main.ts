@@ -81,6 +81,20 @@ enum infrarouge {
     //% block="droite"
     droite
 }
+enum moteurs {
+    //% block="avancer"
+    avancer,
+    //% block="reculer"
+    reculer,
+    //% block="tourner à gauche"
+    tournerGauche,
+    //% block="tourner à droite"
+    tournerDroite,
+    //% block="roue gauche"
+    roueGauche,
+    //% block="roue droite"
+    roueDroite
+}
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
@@ -192,6 +206,37 @@ export function tournerD (vitesse: number): void {
 export function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
+}
+/**
+ * Pour piloter les moteurs du robot
+ */
+//% blockId=Ks0426piloter
+//% weight=100
+//% block="$roues à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
+//% vitesse.defl=50
+//% group="Moteurs"
+export function piloter (roues: moteurs, vitesse: number): void{
+    switch (roues) {
+        case moteurs.avancer :
+            avancer(vitesse)
+            break
+        case moteurs.reculer :
+            reculer(vitesse)
+            break
+        case moteurs.tournerGauche :
+            tournerG(vitesse)
+            break
+        case moteurs.tournerDroite :
+            tournerD(vitesse)
+            break
+        case moteurs.roueGauche :
+            roueG(vitesse)
+            break
+        case moteurs.roueDroite :
+            roueD(vitesse)
+            break
+    }
 }
 /**
  * Pour arrêter le robot
