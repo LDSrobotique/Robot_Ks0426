@@ -278,36 +278,6 @@ export function distanceObs (): number {
     return Math.idiv(pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58), 58)
 }
 /**
- * Retourne vrai si obstacle à moins de 10cm détecté devant
- */
-//% blockId=Ks0426obstacleF
-//% weight=30
-//% block="obstacle devant"
-//% group="Capteurs"
-export function obstacleF (): boolean {
-    if (distanceObs() < 10) { return true } else { return false }
-}
-/**
- * Retourne vrai s'il y a un obstacle sur la gauche
- */
-//% blockId=Ks0426obstacleG
-//% weight=20
-//% block="obstacle à gauche"
-//% group="Capteurs"
-export function obstacleG (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
-}
-/**
- * Retourne vrai s'il y a un obstacle sur la droite
- */
-//% blockId=Ks0426obstacleD
-//% weight=10
-//% block="obstacle à droite"
-//% group="Capteurs"
-export function obstacleD (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
-}
-/**
  * Retourne vrai s'il y a un obstacle
  */
 //% blockId=Ks0426obstacle
