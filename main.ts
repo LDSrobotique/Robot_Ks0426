@@ -151,7 +151,7 @@ function fixVitesse (vitesse: number) {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function roueG (vitesse: number): void {
+function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
 }
@@ -164,7 +164,7 @@ export function roueG (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function roueD (vitesse: number): void {
+function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
@@ -174,7 +174,7 @@ export function roueD (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function avancer (vitesse: number): void {
+function avancer (vitesse: number): void {
     roueG(vitesse)
     roueD(vitesse)
 }
@@ -184,7 +184,7 @@ export function avancer (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function reculer (vitesse: number): void {
+function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
 //% blockId=Ks0426tournerD
@@ -193,7 +193,7 @@ export function reculer (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function tournerD (vitesse: number): void {
+function tournerD (vitesse: number): void {
     roueG(vitesse)
     roueD(-vitesse)
 }
@@ -203,7 +203,7 @@ export function tournerD (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function tournerG (vitesse: number): void{
+function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
 }
