@@ -392,7 +392,20 @@ export function nuitOK(): boolean {
 export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
-
+/**
+ * A simple event taking a function handler
+ */
+//% block="quand bouton A appuyé"
+export function onEvent(handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            if (input.buttonIsPressed(Button.A)) {
+                handler();
+            }
+            basic.pause(100)
+        }
+    })
+}
 // au démarrage
 // let strip: neopixel.Strip = null
 
