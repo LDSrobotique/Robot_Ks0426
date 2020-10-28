@@ -392,6 +392,19 @@ export function nuitOK(): boolean {
 export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
+//% blochId=Ks0426onEvent
+//% group="Capteurs"
+//% weight=4
+//% block="onEvent"
+export function onEvent(handler: () => void) {
+   control.inBackground(function () {
+       while(true) {
+           if (input.buttonIsPressed(Button.A)) { handler (); }
+           basic.pause(20);
+       }
+   })
+}
+
 // au démarrage
 //let strip: neopixel.Strip = null
 
