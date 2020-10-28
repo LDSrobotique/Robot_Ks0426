@@ -393,17 +393,17 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 /**
- * A simple event taking a function handler
+ * Événement : obstacle à gauche détecté
  */
-//% block="quand bouton A appuyé"
-export function onEvent(handler: () => void) {
+//% block="quand obstacle à gauche détecté"
+export function onEventOG(handler: () => void) {
     control.inBackground(function () {
-        while (true) {
-            if (input.buttonIsPressed(Button.A)) {
+       // while (true) {
+            if (obstacleG()) {
                 handler();
             }
-            basic.pause(100)
-        }
+            basic.pause(20)
+      //  }
     })
 }
 // au démarrage
