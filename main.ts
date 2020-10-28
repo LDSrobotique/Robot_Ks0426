@@ -504,8 +504,11 @@ export function onEventOF(dOF: distanceOF, handler: () => void) {
 //% block="quand touche télécommande appuyée"
 export function onEventTelecommande(handler: () => void) {
     control.inBackground(function () {
+        let tCourant = 0
+        let tAncien = 0
         while (true) {
-            if (maqueen.IR_read() > 0) { handler(); }
+            tCourant = maqueen.IR_read()
+            if (tCourant != tAncien) { tAncien = tCourant; handler(); }
             basic.pause(20)
         }
     })
