@@ -411,7 +411,7 @@ export function luminosite(): number {
 //% blochId=Ks0426onEventObsGD
 //% group="Événements"
 //% weight=90
-//% block="quand obstacle à $infrarouge"
+//% block="quand obstacle à $irCote"
 export function onEventOC(irCote: infrarouge, handler: () => void) {
     control.inBackground(function () {
         while (true) {
@@ -433,7 +433,7 @@ export function onEventOC(irCote: infrarouge, handler: () => void) {
 //% blochId=Ks0426onEventObsF
 //% group="Événements"
 //% weight=100
-//% block="quand obstacle devant $distanceOF"
+//% block="quand obstacle devant $dOF"
 export function onEventOF(dOF: distanceOF, handler: () => void) {
     control.inBackground(function () {
         while (true) {
