@@ -70,7 +70,7 @@ enum _cRGB {
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //let strip: neopixel.Strip = null
 //% color="#04B404" icon="\uf17b"
-//% groups="['Démarrage', 'Moteurs', 'Capteurs', 'LED']"
+//% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
 /**
  * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
@@ -393,8 +393,8 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 //% blochId=Ks0426onEvent
-//% group="Capteurs"
-//% weight=4
+//% group="Événements"
+//% weight=100
 //% block="onEvent"
 export function onEvent(handler: () => void) {
    control.inBackground(function () {
