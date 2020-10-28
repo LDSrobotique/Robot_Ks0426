@@ -396,14 +396,14 @@ export function luminosite(): number {
 //% group="Événements"
 //% weight=100
 //% block="onEvent"
-export function onEvent(handler: () => void) {
+/*export function onEvent(handler: () => void) {
    control.inBackground(function () {
        while(true) {
            if (input.buttonIsPressed(Button.A)) { handler (); }
            basic.pause(20);
        }
    })
-}
+}*/
 
 // au démarrage
 // let strip: neopixel.Strip = null
