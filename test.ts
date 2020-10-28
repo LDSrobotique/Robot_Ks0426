@@ -1,5 +1,4 @@
 // les tests vont ici ; cela ne sera pas compilé si ce paquet est utilisé en tant qu'extension.
-
 // LED RGB : Bleu Blanc Rouge
 Ks0426.allumerLED(_cRGB.bleu)
 basic.pause(2000)
@@ -9,9 +8,9 @@ Ks0426.allumerLED(_cRGB.rouge)
 basic.pause(2000)
 Ks0426.eteindreLED()
 basic.forever(function () {
-    /* S'il fait nuit on allume les phares sinon on les éteints */
+    /* S'il fait nuit on allume les phares sinon on les éteints 
     if (Ks0426.nuitOK()) { Ks0426.allumerLED(_cRGB.blanc) }
-    else { Ks0426.eteindreLED() }
+    else { Ks0426.eteindreLED() } */
     /* Test de déplacement du robot */
     // Si obstacle devant alors tourne à droite
     if (Ks0426.obstacleF()) { Ks0426.tournerD(75) }
