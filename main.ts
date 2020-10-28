@@ -440,6 +440,9 @@ export function nuitOK(): boolean {
     else { strip.showColor(neopixel.colors(NeoPixelColors.Black)); return false }
     
 }
+/**
+ * retourne un nombre compris entre 0 et 1023
+ */
 //% blochId=Ks0426cellPhoto
 //% group="Capteurs"
 //% weight=4
