@@ -388,7 +388,7 @@ export function nuitOK(): boolean {
 //% blochId=Ks0426cellPhoto
 //% group="Capteurs"
 //% weight=4
-//% block="lire la luminosité du lieu"
+//% block="lire la luminosité"
 export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
