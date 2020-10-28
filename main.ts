@@ -95,6 +95,14 @@ enum moteurs {
     //% block="roue droite"
     roueDroite
 }
+enum posObs {
+    //% block="devant"
+    devant,
+    //% block="à gauche"
+    gauche,
+    //% block="à droite"
+    droite
+}
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
@@ -298,6 +306,26 @@ export function obstacleG (): boolean {
 //% group="Capteurs"
 export function obstacleD (): boolean {
     if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
+}
+/**
+ * Retourne vrai s'il y a un obstacle
+ */
+//% blockId=Ks0426obstacle
+//% weight=35
+//% block="obstacle $position"
+//% group="Capteurs"
+export function obstacle (position: posObs): boolean {
+    switch (position) {
+        case posObs.devant :
+            if (distanceObs() < 10) { return true } else { return false }
+            break
+        case posObs.gauche :
+            if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
+            break
+        case posObs.droite :
+            if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
+            break
+    }
 }
 /**
  * Suiveur de ligne
