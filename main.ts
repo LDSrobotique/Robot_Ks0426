@@ -9,7 +9,7 @@ enum irSol {
     noire,
     //% block="blanche"
     blanche }
-enum _touche {
+enum touche {
     //% block="flêche Haut"
     irTH=70,
     //% block="flêche Bas"
@@ -44,7 +44,7 @@ enum _touche {
     ir0=82,
     //% block="#"
     irD=74 }
-enum _cRGB {
+enum cRGB {
     //% block="Blanc"
     blanc,
     //% block="Rouge"
@@ -67,15 +67,15 @@ enum _cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC }
-enum _distanceOF {
-    //% block="trop loin"
-    tropLoin,
+enum distanceOF {
+    //% block="assez loin"
+    assezLoin,
     //% block="loin"
     loin,
     //% block="trop près"
     tropPres
 }
-enum _infrarouge {
+enum infrarouge {
     //% block="gauche"
     gauche,
     //% block="droite"
@@ -304,7 +304,7 @@ export function surface(irSurface: irSol): boolean {
 //% weight=7
 //% block="touche télécommande = $irTouche"
 //% group="Capteurs"
-export function telecommande(irTouche: _touche): boolean {
+export function telecommande(irTouche: touche): boolean {
     if (maqueen.IR_read() == irTouche) {
         return true
     } else {
@@ -332,42 +332,42 @@ export function eteindreLED (): void {
 //% weight=100
 //% block="les LED RGB s'allume en $couleur"
 //% group="LED"
-export function allumerLED (couleur: _cRGB): void {
+export function allumerLED (couleur: cRGB): void {
     switch (couleur) {
-        case _cRGB.blanc :
+        case cRGB.blanc :
             allumerRGB (0, 0, 0)
             break
-        case _cRGB.rouge :
+        case cRGB.rouge :
             allumerRGB (0, 100, 100)
             break
-        case _cRGB.rougeC :
+        case cRGB.rougeC :
             allumerRGB (75, 100, 100)
             break
-        case _cRGB.vert :
+        case cRGB.vert :
             allumerRGB (100, 0, 100)
             break
-        case _cRGB.vertC :
+        case cRGB.vertC :
             allumerRGB (100, 75, 100)
             break
-        case _cRGB.bleu :
+        case cRGB.bleu :
             allumerRGB (100, 100, 0)
             break
-        case _cRGB.bleuC :
+        case cRGB.bleuC :
             allumerRGB (100, 100, 75)
             break
-        case _cRGB.bleuC :
+        case cRGB.bleuC :
             allumerRGB (100, 100, 75)
             break
-        case _cRGB.rose :
+        case cRGB.rose :
             allumerRGB (0, 100, 0)
             break
-        case _cRGB.roseC :
+        case cRGB.roseC :
             allumerRGB (75, 100, 75)
             break
-        case _cRGB.jaune :
+        case cRGB.jaune :
             allumerRGB (0, 0, 100)
             break
-        case _cRGB.jauneC :
+        case cRGB.jauneC :
             allumerRGB (75, 75, 100)
             break
     }
@@ -412,14 +412,14 @@ export function luminosite(): number {
 //% group="Événements"
 //% weight=90
 //% block="quand obstacle à $infrarouge"
-export function onEventOGD(infrarouge: _infrarouge, handler: () => void) {
+export function onEventOC(irCote: infrarouge, handler: () => void) {
     control.inBackground(function () {
         while (true) {
-            switch (infrarouge) {
-                case _infrarouge.gauche :
+            switch (irCote) {
+                case infrarouge.gauche :
                     if (pins.digitalReadPin(DigitalPin.P2) == 0) { handler(); }
                     break
-                case _infrarouge.droite :
+                case infrarouge.droite :
                     if (pins.digitalReadPin(DigitalPin.P11) == 0) { handler(); }
                     break
             }
@@ -434,18 +434,18 @@ export function onEventOGD(infrarouge: _infrarouge, handler: () => void) {
 //% group="Événements"
 //% weight=100
 //% block="quand obstacle devant $distanceOF"
-export function onEventOF(distanceOF: _distanceOF, handler: () => void) {
+export function onEventOF(dOF: distanceOF, handler: () => void) {
     control.inBackground(function () {
         while (true) {
             const distObs = distanceObs();
-            switch (distanceOF) {
-                case _distanceOF.tropLoin :
+            switch (dOF) {
+                case distanceOF.assezLoin :
                     if (distObs > 20) { handler(); }
                     break
-                case _distanceOF.loin :
+                case distanceOF.loin :
                     if (distObs >= 10 && distObs <= 20) { handler(); }
                     break
-                case _distanceOF.tropPres :
+                case distanceOF.tropPres :
                     if (distObs < 10) { handler(); }
                     break
             }

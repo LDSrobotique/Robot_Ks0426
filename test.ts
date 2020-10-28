@@ -1,10 +1,10 @@
 // les tests vont ici ; cela ne sera pas compilé si ce paquet est utilisé en tant qu'extension.
 // LED RGB : Bleu Blanc Rouge
-Ks0426.allumerLED(_cRGB.bleu)
+Ks0426.allumerLED(cRGB.bleu)
 basic.pause(2000)
-Ks0426.allumerLED(_cRGB.blanc)
+Ks0426.allumerLED(cRGB.blanc)
 basic.pause(2000)
-Ks0426.allumerLED(_cRGB.rouge)
+Ks0426.allumerLED(cRGB.rouge)
 basic.pause(2000)
 Ks0426.eteindreLED()
 basic.forever(function () {
