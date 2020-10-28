@@ -406,7 +406,7 @@ export function onEvent(handler: () => void) {
 }
 
 // au démarrage
-//let strip: neopixel.Strip = null
+// let strip: neopixel.Strip = null
 
 initialisation
 }
