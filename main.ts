@@ -69,20 +69,11 @@ enum cRGB {
     jauneC,
     //% block="Éleindre"
     noir }
-enum distanceOF {
-    //% block="assez loin"
-    assezLoin,
-    //% block="loin"
-    loin,
-    //% block="trop près"
-    tropPres
-}
 enum infrarouge {
     //% block="gauche"
     gauche,
     //% block="droite"
-    droite
-}
+    droite }
 enum moteurs {
     //% block="avancer"
     avancer,
@@ -93,16 +84,14 @@ enum moteurs {
     //% block="tourner à droite"
     tournerDroite,
     //% block="stopper le mouvement"
-    stopper
-}
+    stopper }
 enum posObs {
     //% block="devant"
     devant,
     //% block="à gauche"
     gauche,
     //% block="à droite"
-    droite
-}
+    droite }
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Actionneurs', 'Capteurs', 'LED']"
