@@ -126,7 +126,7 @@ export function initialisation (): void {
     strip.clear()
     strip.show()
     // Initialiser les LEDs RGB et les moteurs
-    // PCA9685.reset(67)
+    PCA9685.reset(67)
     PCA9685.init(67, 0)
     basic.pause(1000)
     // Éteindre les LEDs RGB
@@ -446,54 +446,6 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 /**
- * Événement : obstacle à gauche ou à droite détecté
- */
-//% blochId=Ks0426onEventObsGD
-//% group="Événements"
-//% weight=90
-//% block="quand obstacle à $irCote"
-export function onEventOC(irCote: infrarouge, handler: () => void) {
-    control.inBackground(function () {
-        while (true) {
-            switch (irCote) {
-                case infrarouge.gauche :
-                    if (pins.digitalReadPin(DigitalPin.P2) == 0) { handler(); }
-                    break
-                case infrarouge.droite :
-                    if (pins.digitalReadPin(DigitalPin.P11) == 0) { handler(); }
-                    break
-            }
-            basic.pause(20)
-        }
-    })
-}
-/**
- * Événement : obstacle devant détecté
- */
-//% blochId=Ks0426onEventObsF
-//% group="Événements"
-//% weight=100
-//% block="quand obstacle devant $dOF"
-export function onEventOF(dOF: distanceOF, handler: () => void) {
-    control.inBackground(function () {
-        while (true) {
-            const distObs = distanceObs();
-            switch (dOF) {
-                case distanceOF.assezLoin :
-                    if (distObs > 20) { handler(); }
-                    break
-                case distanceOF.loin :
-                    if (distObs >= 10 && distObs <= 20) { handler(); }
-                    break
-                case distanceOF.tropPres :
-                    if (distObs < 10) { handler(); }
-                    break
-            }
-            basic.pause(20)
-        }
-    })
-}
-/**
  * Événement : pour gérer les obstacles
  */
 //% blochId=Ks0426onEventObs
@@ -504,8 +456,8 @@ export function onEventObstacle(handler: () => void) {
     control.inBackground(function () {
         while (true) {
             handler();
-            }
             basic.pause(20)
+            }
         })
 }
 /**
