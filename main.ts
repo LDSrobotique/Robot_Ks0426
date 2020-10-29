@@ -103,6 +103,14 @@ enum posObs {
     //% block="à droite"
     droite
 }
+enum posObg{
+    //% block="devant"
+    devant,
+    //% block="à gauche"
+    gauche,
+    //% block="à droite"
+    droite
+}
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
