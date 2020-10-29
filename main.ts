@@ -103,12 +103,6 @@ enum posObs {
     //% block="à droite"
     droite
 }
-enum obsOuiNon {
-    //% block="il y a"
-    obsOui,
-    //% block="il n'y a pas"
-    obsNon,
-}
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
@@ -505,29 +499,19 @@ export function onEventOF(dOF: distanceOF, handler: () => void) {
     })
 }
 /**
- * Événement : obstacle ou pas
+ * Événement : pour gérer les obstacles
  */
 //% blochId=Ks0426onEventObs
 //% group="Événements"
 //% weight=100
-//% block="quand $choixObsOuiNon obstacle"
-export function onEventObstacle(choixObsOuiNon: obsOuiNon, handler: () => void) {
+//% block="quand obstacle"
+export function onEventObstacle(handler: () => void) {
     control.inBackground(function () {
         while (true) {
-            let obstacleFGD = obstacle(posObs.devant) || obstacle(posObs.gauche) || obstacle(posObs.droite)
-            switch (choixObsOuiNon) {
-                case obsOuiNon.obsOui :
-                    if (obstacleFGD) {
-                         handler(); }
-                    break
-                case obsOuiNon.obsNon :
-                    if (!obstacleFGD) {
-                         handler(); }
-                    break
+            handler();
             }
             basic.pause(20)
-        }
-    })
+        })
 }
 /**
  * Événement : touche télécommande appuyée
