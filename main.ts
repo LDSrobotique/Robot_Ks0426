@@ -454,13 +454,19 @@ export function obstacle (position: posObs): boolean {
 //% block="quand obstacle"
 export function onEventObstacle(handler: () => void) {
     control.inBackground(function () {
-        const obstacleOK: boolean = distanceObs() < 10
+        let obstacle: boolean;
+        let distObs: number;
+        // pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0
+        // distanceObs() < 10
         while (true) {
-            if (pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0) {
+            //obstacle = pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0
+            distObs = distanceObs();
+            obstacle = distObs < 10;
+            if (distObs < 10) {
                 handler(); }
-            basic.pause(20)
+            basic.pause(20);
             }
-        })
+        });
 }
 /**
  * Événement : quand il n'y a pas d'obstacle
@@ -471,13 +477,19 @@ export function onEventObstacle(handler: () => void) {
 //% block="quand pas obstacle"
 export function onEventPasObstacle(handler: () => void) {
     control.inBackground(function () {
-        const obstacleOK: boolean = distanceObs() < 10
+        let pasObstacle: boolean;
+        let distObs: number;
+        // pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1
+        // distanceObs() >= 10
         while (true) {
-            if (pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1) {
+            //pasObstacle = pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1
+            distObs = distanceObs();
+            pasObstacle = distObs >= 10;
+            if (distObs >= 10) {
                 handler(); }
-            basic.pause(20)
+            basic.pause(20);
             }
-        })
+        });
 }
 /**
  * Événement : touche télécommande appuyée
