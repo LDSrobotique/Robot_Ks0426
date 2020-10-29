@@ -2,13 +2,14 @@
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
 enum irLN { gauche, droite }
-enum irSol {
-    //% block="du vide"
-    vide,
-    //% block="noire"
+enum irLignesVide {
+    //% block="d'une ligne noire"
     noire,
-    //% block="blanche"
-    blanche }
+    //% block="d'une surface blanche"
+    blanche,
+    //% block="du vide"
+    vide
+}
 enum touche {
     //% block="flêche Haut"
     irTH=70,
@@ -268,42 +269,32 @@ export function distanceObs (): number {
  */
 //% blockId=Ks0426irLigneN
 //% weight=9
-//% block="[Suiveur de ligne] capteur $irLigneN au dessus d'une ligne noire"
+//% block="[Suiveur de ligne] capteur $irLigneN au dessus $surface"
 //% group="Capteurs"
-export function ligneNoire (irLigneN: irLN): boolean {
-    switch (irLigneN) {
-        case irLN.gauche :
-            if (pins.digitalReadPin(DigitalPin.P13) == 1) { return true } else { return false }
-            break
-        case irLN.droite :
-            if (pins.digitalReadPin(DigitalPin.P12) == 1) { return true } else { return false }
-            break
-    }
-}
-/**
- * Retourne vrai s'il y a du vide,
- * - une surface foncée ou
- * - une surface claire devant le robot
- */
-//% blockId=Ks0426surfaceN
-//% weight=8
-//% block="[Capteur de sol] surface $irSurface"
-//% group="Capteurs"
-export function surface(irSurface: irSol): boolean {
-    switch (irSurface) {
-        case irSol.vide : // surface vide ou foncée
-            if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1)
-                { return true } else { return false }
-            break
-        case irSol.noire :
-            if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1)
-                { return true } else { return false }
-            break
-        case irSol.blanche : // surface claire
-            if (pins.digitalReadPin(DigitalPin.P12) == 0 || pins.digitalReadPin(DigitalPin.P13) == 0)
-                { return true } else { return false }
-            break
-    }
+export function ligneNoire (irLigneN: irLN, surface: irLignesVide): boolean {
+            switch (surface) {
+                case irLignesVide.noire :
+                    if (irLigneN == irLN.gauche) {
+                        if (pins.digitalReadPin(DigitalPin.P13) == 1) { return true } else { return false }
+                    } else {
+                        if (pins.digitalReadPin(DigitalPin.P12) == 1) { return true } else { return false }
+                        }
+                    break
+                case irLignesVide.blanche :
+                    if (irLigneN == irLN.gauche)
+                    {if (pins.digitalReadPin(DigitalPin.P13) == 0)
+                        { return true } else { return false }}
+                    else {if (pins.digitalReadPin(DigitalPin.P12) == 0)
+                        { return true } else { return false }}
+                    break
+                case irLignesVide.vide :
+                    if (irLigneN == irLN.gauche)
+                    {if (pins.digitalReadPin(DigitalPin.P13) == 1)
+                        { return true } else { return false }}
+                    else {if (pins.digitalReadPin(DigitalPin.P12) == 1)
+                        { return true } else { return false }}
+                    break
+            }
 }
 /**
  * Gestion de la télécommande infrarouge
