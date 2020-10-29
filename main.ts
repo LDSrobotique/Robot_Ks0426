@@ -272,26 +272,6 @@ export function distanceObs (): number {
     return Math.idiv(pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58), 58)
 }
 /**
- * Retourne vrai s'il y a un obstacle
- */
-//% blockId=Ks0426obstacle
-//% weight=35
-//% block="obstacle $position"
-//% group="Capteurs"
-export function obstacle (position: posObs): boolean {
-    switch (position) {
-        case posObs.devant :
-            if (distanceObs() < 10) { return true } else { return false }
-            break
-        case posObs.gauche :
-            if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
-            break
-        case posObs.droite :
-            if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
-            break
-    }
-}
-/**
  * Suiveur de ligne
  * - Retourne vrai si détection d'une ligne noire
  */
@@ -446,7 +426,27 @@ export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
 /**
- * Événement : pour gérer les obstacles
+ * Retourne vrai s'il y a un obstacle
+ */
+//% blockId=Ks0426obstacle
+//% weight=35
+//% block="obstacle $position"
+//% group="Capteurs"
+export function obstacle (position: posObs): boolean {
+    switch (position) {
+        case posObs.devant :
+            if (distanceObs() < 10) { return true } else { return false }
+            break
+        case posObs.gauche :
+            if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
+            break
+        case posObs.droite :
+            if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
+            break
+    }
+}
+/**
+ * Événement : quand il y a au moins un obstacle
  */
 //% blochId=Ks0426onEventObs
 //% group="Événements"
@@ -454,8 +454,27 @@ export function luminosite(): number {
 //% block="quand obstacle"
 export function onEventObstacle(handler: () => void) {
     control.inBackground(function () {
+        const obstacleOK: boolean = distanceObs() < 10
         while (true) {
-            handler();
+            if (obstacleOK == true) {
+                handler(); }
+            basic.pause(20)
+            }
+        })
+}
+/**
+ * Événement : quand il n'y a pas d'obstacle
+ */
+//% blochId=Ks0426onEventPasObs
+//% group="Événements"
+//% weight=90
+//% block="quand pas obstacle"
+export function onEventPasObstacle(handler: () => void) {
+    control.inBackground(function () {
+        const obstacleOK: boolean = distanceObs() < 10
+        while (true) {
+            if (obstacleOK == false) {
+                handler(); }
             basic.pause(20)
             }
         })
