@@ -9,7 +9,7 @@ enum irSol {
     noire,
     //% block="blanche"
     blanche }
-enum _touche {
+enum touche {
     //% block="flêche Haut"
     irTH=70,
     //% block="flêche Bas"
@@ -44,7 +44,7 @@ enum _touche {
     ir0=82,
     //% block="#"
     irD=74 }
-enum _cRGB {
+enum cRGB {
     //% block="Blanc"
     blanc,
     //% block="Rouge"
@@ -67,10 +67,43 @@ enum _cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC }
+enum distanceOF {
+    //% block="assez loin"
+    assezLoin,
+    //% block="loin"
+    loin,
+    //% block="trop près"
+    tropPres
+}
+enum infrarouge {
+    //% block="gauche"
+    gauche,
+    //% block="droite"
+    droite
+}
+enum moteurs {
+    //% block="avancer"
+    avancer,
+    //% block="reculer"
+    reculer,
+    //% block="tourner à gauche"
+    tournerGauche,
+    //% block="tourner à droite"
+    tournerDroite,
+    //% block="stopper le mouvement"
+    stopper
+}
+enum posObs {
+    //% block="devant"
+    devant,
+    //% block="à gauche"
+    gauche,
+    //% block="à droite"
+    droite
+}
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
-//let strip: neopixel.Strip = null
 //% color="#04B404" icon="\uf17b"
-//% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
+//% groups="['Démarrage', 'Événements', 'Actionneurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
 /**
  * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
@@ -80,10 +113,9 @@ namespace Ks0426 {
 //% block="initialisation"
 //% group="Démarrage"
 export function initialisation (): void {
-    // Rendre tous les Pins utilisables par le robot
-    //led.enable(false)
-    // Pour le port série ?
-    //pins.analogSetPitchPin(AnalogPin.P0)
+    // Réserver tous les Pins pour le robot
+    led.enable(false)
+    pins.analogSetPitchPin(AnalogPin.P0)
     // Mettre les IR gauche (sur P2) et droite (sur P11) en PullUp
     pins.setPull(DigitalPin.P2, PinPullMode.PullUp)
     pins.setPull(DigitalPin.P11, PinPullMode.PullUp)
@@ -94,7 +126,7 @@ export function initialisation (): void {
     strip.clear()
     strip.show()
     // Initialiser les LEDs RGB et les moteurs
-    // PCA9685.reset(67)
+    PCA9685.reset(67)
     PCA9685.init(67, 0)
     basic.pause(1000)
     // Éteindre les LEDs RGB
@@ -119,8 +151,8 @@ function fixVitesse (vitesse: number) {
  * - vitesse positive pour avancer
  */
 //% blockId=Ks0426roueG
-//% weight=30
-//% block="roue gauche à $vitesse \\% de puissance"
+//% weight=80
+//% block="[Moteurs] roue gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
@@ -132,8 +164,8 @@ export function roueG (vitesse: number): void {
  * Pour commander le roue droite
  */
 //% blockId=Ks0426roueD
-//% weight=20
-//% block="roue droite à $vitesse \\% de puissance"
+//% weight=70
+//% block="[Moteurs] roue droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
@@ -147,7 +179,7 @@ export function roueD (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function avancer (vitesse: number): void {
+function avancer (vitesse: number): void {
     roueG(vitesse)
     roueD(vitesse)
 }
@@ -157,7 +189,7 @@ export function avancer (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function reculer (vitesse: number): void {
+function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
 //% blockId=Ks0426tournerD
@@ -166,7 +198,7 @@ export function reculer (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function tournerD (vitesse: number): void {
+function tournerD (vitesse: number): void {
     roueG(vitesse)
     roueD(-vitesse)
 }
@@ -176,16 +208,44 @@ export function tournerD (vitesse: number): void {
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-export function tournerG (vitesse: number): void{
+function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
+}
+/**
+ * Pour piloter les moteurs du robot
+ */
+//% blockId=Ks0426piloter
+//% weight=100
+//% block="[Moteurs] $roues à $vitesse \\% de puissance"
+//% vitesse.shadow="speedPicker"
+//% vitesse.defl=50
+//% group="Moteurs"
+export function piloter (roues: moteurs, vitesse: number): void{
+    switch (roues) {
+        case moteurs.avancer :
+            avancer(vitesse)
+            break
+        case moteurs.reculer :
+            reculer(vitesse)
+            break
+        case moteurs.tournerGauche :
+            tournerG(vitesse)
+            break
+        case moteurs.tournerDroite :
+            tournerD(vitesse)
+            break
+        case moteurs.stopper :
+            stopper()
+            break
+    }
 }
 /**
  * Pour arrêter le robot
  */
 //% blockId=Ks0426stopper
-//% weight=10
-//% block="stopper le mouvement"
+//% weight=90
+//% block="[Moteurs] stopper le mouvement"
 //% group="Moteurs"
 export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
@@ -210,36 +270,6 @@ export function distanceObs (): number {
     pins.digitalWritePin(DigitalPin.P14, 0);
     // lire pulse
     return Math.idiv(pins.pulseIn(DigitalPin.P15, PulseValue.High, 500 * 58), 58)
-}
-/**
- * Retourne vrai si obstacle à moins de 10cm détecté devant
- */
-//% blockId=Ks0426obstacleF
-//% weight=30
-//% block="obstacle devant"
-//% group="Capteurs"
-export function obstacleF (): boolean {
-    if (distanceObs() < 10) { return true } else { return false }
-}
-/**
- * Retourne vrai s'il y a un obstacle sur la gauche
- */
-//% blockId=Ks0426obstacleG
-//% weight=20
-//% block="obstacle à gauche"
-//% group="Capteurs"
-export function obstacleG (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
-}
-/**
- * Retourne vrai s'il y a un obstacle sur la droite
- */
-//% blockId=Ks0426obstacleD
-//% weight=10
-//% block="obstacle à droite"
-//% group="Capteurs"
-export function obstacleD (): boolean {
-    if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
 }
 /**
  * Suiveur de ligne
@@ -287,11 +317,11 @@ export function surface(irSurface: irSol): boolean {
 /**
  * Gestion de la télécommande infrarouge
  */
-//% blochId=Ks0426telecommande
+//% blochId=Ks0426sTelecommande
 //% weight=7
 //% block="touche télécommande = $irTouche"
 //% group="Capteurs"
-export function telecommande(irTouche: _touche): boolean {
+export function telecommande(irTouche: touche): boolean {
     if (maqueen.IR_read() == irTouche) {
         return true
     } else {
@@ -319,42 +349,42 @@ export function eteindreLED (): void {
 //% weight=100
 //% block="les LED RGB s'allume en $couleur"
 //% group="LED"
-export function allumerLED (couleur: _cRGB): void {
+export function allumerLED (couleur: cRGB): void {
     switch (couleur) {
-        case _cRGB.blanc :
+        case cRGB.blanc :
             allumerRGB (0, 0, 0)
             break
-        case _cRGB.rouge :
+        case cRGB.rouge :
             allumerRGB (0, 100, 100)
             break
-        case _cRGB.rougeC :
+        case cRGB.rougeC :
             allumerRGB (75, 100, 100)
             break
-        case _cRGB.vert :
+        case cRGB.vert :
             allumerRGB (100, 0, 100)
             break
-        case _cRGB.vertC :
+        case cRGB.vertC :
             allumerRGB (100, 75, 100)
             break
-        case _cRGB.bleu :
+        case cRGB.bleu :
             allumerRGB (100, 100, 0)
             break
-        case _cRGB.bleuC :
+        case cRGB.bleuC :
             allumerRGB (100, 100, 75)
             break
-        case _cRGB.bleuC :
+        case cRGB.bleuC :
             allumerRGB (100, 100, 75)
             break
-        case _cRGB.rose :
+        case cRGB.rose :
             allumerRGB (0, 100, 0)
             break
-        case _cRGB.roseC :
+        case cRGB.roseC :
             allumerRGB (75, 100, 75)
             break
-        case _cRGB.jaune :
+        case cRGB.jaune :
             allumerRGB (0, 0, 100)
             break
-        case _cRGB.jauneC :
+        case cRGB.jauneC :
             allumerRGB (75, 75, 100)
             break
     }
@@ -385,6 +415,9 @@ export function nuitOK(): boolean {
     else { strip.showColor(neopixel.colors(NeoPixelColors.Black)); return false }
     
 }
+/**
+ * retourne un nombre compris entre 0 et 1023
+ */
 //% blochId=Ks0426cellPhoto
 //% group="Capteurs"
 //% weight=4
@@ -392,9 +425,76 @@ export function nuitOK(): boolean {
 export function luminosite(): number {
     return pins.analogReadPin(AnalogPin.P1)
 }
-
+/**
+ * Retourne vrai s'il y a un obstacle
+ */
+//% blockId=Ks0426obstacle
+//% weight=35
+//% block="obstacle $position"
+//% group="Capteurs"
+export function obstacle (position: posObs): boolean {
+    switch (position) {
+        case posObs.devant :
+            if (distanceObs() < 10) { return true } else { return false }
+            break
+        case posObs.gauche :
+            if (pins.digitalReadPin(DigitalPin.P2) == 0) { return true } else { return false }
+            break
+        case posObs.droite :
+            if (pins.digitalReadPin(DigitalPin.P11) == 0) { return true } else { return false }
+            break
+    }
+}
+/**
+ * Événement : quand il y a au moins un obstacle
+ */
+//% blochId=Ks0426onEventObs
+//% group="Événements"
+//% weight=100
+//% block="quand obstacle"
+export function onEventObstacle(handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            if (distanceObs() < 10 || pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0) {
+                handler(); }
+            basic.pause(20);
+            }
+        });
+}
+/**
+ * Événement : quand il n'y a pas d'obstacle
+ */
+//% blochId=Ks0426onEventPasObs
+//% group="Événements"
+//% weight=90
+//% block="quand pas obstacle"
+export function onEventPasObstacle(handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            if (distanceObs() >= 10 && pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1) {
+                handler(); }
+            basic.pause(20);
+            }
+        });
+}
+/**
+ * Événement : touche télécommande appuyée
+ */
+//% blochId=Ks0426qTelecommande
+//% group="Événements"
+//% weight=80
+//% block="quand touche télécommande appuyée"
+export function onEventTelecommande(handler: () => void) {
+    control.inBackground(function () {
+        let tCourant = 0
+        let tAncien = 0
+        while (true) {
+            tCourant = maqueen.IR_read()
+            if (tCourant != tAncien) { tAncien = tCourant; handler(); }
+            basic.pause(20)
+        }
+    })
+}
 // au démarrage
-// let strip: neopixel.Strip = null
-
 initialisation
 }
