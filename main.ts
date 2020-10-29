@@ -456,7 +456,7 @@ export function onEventObstacle(handler: () => void) {
     control.inBackground(function () {
         const obstacleOK: boolean = distanceObs() < 10
         while (true) {
-            if (obstacleOK == true) {
+            if (pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0) {
                 handler(); }
             basic.pause(20)
             }
@@ -473,7 +473,7 @@ export function onEventPasObstacle(handler: () => void) {
     control.inBackground(function () {
         const obstacleOK: boolean = distanceObs() < 10
         while (true) {
-            if (obstacleOK == false) {
+            if (pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1) {
                 handler(); }
             basic.pause(20)
             }
