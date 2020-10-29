@@ -66,7 +66,9 @@ enum cRGB {
     //% block="Jaune"
     jaune,
     //% block="Jaune clair"
-    jauneC }
+    jauneC,
+    //% block="Éleindre les LED"
+    noir }
 enum distanceOF {
     //% block="assez loin"
     assezLoin,
@@ -386,6 +388,9 @@ export function allumerLED (couleur: cRGB): void {
             break
         case cRGB.jauneC :
             allumerRGB (75, 75, 100)
+            break
+        case cRGB.noir :
+            allumerRGB (100, 100, 100)
             break
     }
 }
