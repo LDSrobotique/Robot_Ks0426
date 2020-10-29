@@ -2,13 +2,14 @@
  * Robot Ks0426 de Keyestudio sur micro:bit
  */
 enum irLN { gauche, droite }
-enum irSol {
-    //% block="du vide"
-    vide,
-    //% block="noire"
+enum irLignesVide {
+    //% block="d'une ligne noire"
     noire,
-    //% block="blanche"
-    blanche }
+    //% block="d'une surface blanche"
+    blanche,
+    //% block="du vide"
+    vide
+}
 enum touche {
     //% block="flêche Haut"
     irTH=70,
@@ -66,21 +67,14 @@ enum cRGB {
     //% block="Jaune"
     jaune,
     //% block="Jaune clair"
-    jauneC }
-enum distanceOF {
-    //% block="assez loin"
-    assezLoin,
-    //% block="loin"
-    loin,
-    //% block="trop près"
-    tropPres
-}
+    jauneC,
+    //% block="Éleindre"
+    noir }
 enum infrarouge {
     //% block="gauche"
     gauche,
     //% block="droite"
-    droite
-}
+    droite }
 enum moteurs {
     //% block="avancer"
     avancer,
@@ -91,16 +85,35 @@ enum moteurs {
     //% block="tourner à droite"
     tournerDroite,
     //% block="stopper le mouvement"
-    stopper
-}
+    stopper }
 enum posObs {
     //% block="devant"
     devant,
     //% block="à gauche"
     gauche,
     //% block="à droite"
-    droite
-}
+    droite }
+enum neopixelC {
+    //% block="rouge"
+    rouge,
+    //% block="orange"
+    orange,
+    //% block="jaune"
+    jaune,
+    //% block="vert"
+    vert,
+    //% block="bleu"
+    bleu,
+    //% block="indigo"
+    indigo,
+    //% block="violet"
+    violet,
+    //% block="magenta"
+    magenta,
+    //% block="blanc"
+    blanc,
+    //% block="noir"
+    noir }
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Actionneurs', 'Capteurs', 'LED']"
@@ -151,11 +164,11 @@ function fixVitesse (vitesse: number) {
  * - vitesse positive pour avancer
  */
 //% blockId=Ks0426roueG
-//% weight=80
+//% weight=190
 //% block="[Moteurs] roue gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
@@ -164,50 +177,50 @@ export function roueG (vitesse: number): void {
  * Pour commander le roue droite
  */
 //% blockId=Ks0426roueD
-//% weight=70
+//% weight=170
 //% block="[Moteurs] roue droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
 //% blockId=Ks0426avancer
-//% weight=70
+//% weight=180
 //% block="avancer à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function avancer (vitesse: number): void {
     roueG(vitesse)
     roueD(vitesse)
 }
 //% blockId=Ks0426reculer
-//% weight=40
+//% weight=150
 //% block="reculer à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
 //% blockId=Ks0426tournerD
-//% weight=50
+//% weight=160
 //% block="tourner à droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function tournerD (vitesse: number): void {
     roueG(vitesse)
     roueD(-vitesse)
 }
 //% blockId=Ks0426tournerG
-//% weight=60
+//% weight=165
 //% block="tourner à gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
@@ -216,11 +229,11 @@ function tournerG (vitesse: number): void{
  * Pour piloter les moteurs du robot
  */
 //% blockId=Ks0426piloter
-//% weight=100
+//% weight=210
 //% block="[Moteurs] $roues à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 export function piloter (roues: moteurs, vitesse: number): void{
     switch (roues) {
         case moteurs.avancer :
@@ -244,9 +257,9 @@ export function piloter (roues: moteurs, vitesse: number): void{
  * Pour arrêter le robot
  */
 //% blockId=Ks0426stopper
-//% weight=90
+//% weight=200
 //% block="[Moteurs] stopper le mouvement"
-//% group="Moteurs"
+//% group="Actionneurs"
 export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, 0, 67)
@@ -277,42 +290,32 @@ export function distanceObs (): number {
  */
 //% blockId=Ks0426irLigneN
 //% weight=9
-//% block="[Suiveur de ligne] capteur $irLigneN au dessus d'une ligne noire"
+//% block="[Suiveur de ligne] capteur $irLigneN au dessus $surface"
 //% group="Capteurs"
-export function ligneNoire (irLigneN: irLN): boolean {
-    switch (irLigneN) {
-        case irLN.gauche :
-            if (pins.digitalReadPin(DigitalPin.P13) == 1) { return true } else { return false }
-            break
-        case irLN.droite :
-            if (pins.digitalReadPin(DigitalPin.P12) == 1) { return true } else { return false }
-            break
-    }
-}
-/**
- * Retourne vrai s'il y a du vide,
- * - une surface foncée ou
- * - une surface claire devant le robot
- */
-//% blockId=Ks0426surfaceN
-//% weight=8
-//% block="[Capteur de sol] surface $irSurface"
-//% group="Capteurs"
-export function surface(irSurface: irSol): boolean {
-    switch (irSurface) {
-        case irSol.vide : // surface vide ou foncée
-            if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1)
-                { return true } else { return false }
-            break
-        case irSol.noire :
-            if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1)
-                { return true } else { return false }
-            break
-        case irSol.blanche : // surface claire
-            if (pins.digitalReadPin(DigitalPin.P12) == 0 || pins.digitalReadPin(DigitalPin.P13) == 0)
-                { return true } else { return false }
-            break
-    }
+export function ligneNoire (irLigneN: irLN, surface: irLignesVide): boolean {
+            switch (surface) {
+                case irLignesVide.noire :
+                    if (irLigneN == irLN.gauche) {
+                        if (pins.digitalReadPin(DigitalPin.P13) == 1) { return true } else { return false }
+                    } else {
+                        if (pins.digitalReadPin(DigitalPin.P12) == 1) { return true } else { return false }
+                        }
+                    break
+                case irLignesVide.blanche :
+                    if (irLigneN == irLN.gauche)
+                    {if (pins.digitalReadPin(DigitalPin.P13) == 0)
+                        { return true } else { return false }}
+                    else {if (pins.digitalReadPin(DigitalPin.P12) == 0)
+                        { return true } else { return false }}
+                    break
+                case irLignesVide.vide :
+                    if (irLigneN == irLN.gauche)
+                    {if (pins.digitalReadPin(DigitalPin.P13) == 1)
+                        { return true } else { return false }}
+                    else {if (pins.digitalReadPin(DigitalPin.P12) == 1)
+                        { return true } else { return false }}
+                    break
+            }
 }
 /**
  * Gestion de la télécommande infrarouge
@@ -339,16 +342,16 @@ function allumerRGB (led7: number, led6: number, led5: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
 }
 //% blochId=Ks0426ledRGB
-//% weight=80
+//% weight=120
 //% block="les LED RGB s'éteignent"
-//% group="LED"
+//% group="Actionneurs"
 export function eteindreLED (): void {
     allumerRGB (100, 100, 100)
 }
 //% blochId=Ks0426ledRGB
-//% weight=100
-//% block="les LED RGB s'allume en $couleur"
-//% group="LED"
+//% weight=130
+//% block="les LED RGB $couleur"
+//% group="Actionneurs"
 export function allumerLED (couleur: cRGB): void {
     switch (couleur) {
         case cRGB.blanc :
@@ -387,11 +390,14 @@ export function allumerLED (couleur: cRGB): void {
         case cRGB.jauneC :
             allumerRGB (75, 75, 100)
             break
+        case cRGB.noir :
+            allumerRGB (100, 100, 100)
+            break
     }
 }
 //% blochId=Ks0426ledRGBcTous
-//% group="LED"
-//% weight=90
+//% group="Actionneurs"
+//% weight=110
 //% block="les LED RGB : Rouge $rouge \\%, Vert $vert \\%, Bleu $bleu \\%"
 export function allumerRVB (rouge: number, vert: number, bleu: number): void {
     if (rouge < 0) { rouge = 0 }
@@ -411,8 +417,8 @@ export function allumerRVB (rouge: number, vert: number, bleu: number): void {
 //% block="il fait nuit"
 export function nuitOK(): boolean {
     if (pins.analogReadPin(AnalogPin.P1) < 200)
-        { strip.showColor(neopixel.colors(NeoPixelColors.Red)); return true }
-    else { strip.showColor(neopixel.colors(NeoPixelColors.Black)); return false }
+        { return true }
+    else { return false }
     
 }
 /**
@@ -494,6 +500,47 @@ export function onEventTelecommande(handler: () => void) {
             basic.pause(20)
         }
     })
+}
+/**
+ * Événement : touche télécommande appuyée
+ */
+//% blochId=Ks0426qNeopixel
+//% group="Actionneurs"
+//% weight=100
+//% block="[Neopixel] régler couleur sur $neopixelCouleur"
+export function neopixelR(neopixelCouleur: neopixelC) {
+    switch (neopixelCouleur) {
+        case neopixelC.rouge :
+            strip.showColor(neopixel.colors(NeoPixelColors.Red))
+            break
+        case neopixelC.orange :
+            strip.showColor(neopixel.colors(NeoPixelColors.Orange))
+            break
+        case neopixelC.jaune :
+            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
+            break
+        case neopixelC.vert :
+            strip.showColor(neopixel.colors(NeoPixelColors.Green))
+            break
+        case neopixelC.bleu :
+            strip.showColor(neopixel.colors(NeoPixelColors.Blue))
+            break
+        case neopixelC.indigo :
+            strip.showColor(neopixel.colors(NeoPixelColors.Indigo))
+            break
+        case neopixelC.violet :
+            strip.showColor(neopixel.colors(NeoPixelColors.Violet))
+            break
+        case neopixelC.magenta :
+            strip.showColor(neopixel.colors(NeoPixelColors.Purple))
+            break
+        case neopixelC.blanc :
+            strip.showColor(neopixel.colors(NeoPixelColors.White))
+            break
+        case neopixelC.noir :
+            strip.showColor(neopixel.colors(NeoPixelColors.Black))
+            break
+    }
 }
 // au démarrage
 initialisation
