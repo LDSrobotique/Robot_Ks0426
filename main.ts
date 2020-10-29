@@ -103,13 +103,11 @@ enum posObs {
     //% block="à droite"
     droite
 }
-enum posObg{
-    //% block="devant"
-    devant,
-    //% block="à gauche"
-    gauche,
-    //% block="à droite"
-    droite
+enum obsOuiNon {
+    //% block="il y a"
+    obsOui,
+    //% block="il n'y a pas"
+    obsNon,
 }
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
@@ -500,6 +498,31 @@ export function onEventOF(dOF: distanceOF, handler: () => void) {
                     break
                 case distanceOF.tropPres :
                     if (distObs < 10) { handler(); }
+                    break
+            }
+            basic.pause(20)
+        }
+    })
+}
+/**
+ * Événement : obstacle ou pas
+ */
+//% blochId=Ks0426onEventObs
+//% group="Événements"
+//% weight=100
+//% block="quand $choixObsOuiNon obstacle"
+export function onEventObstacle(choixObsOuiNon: obsOuiNon, handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            let obstacleFGD = obstacle(posObs.devant) || obstacle(posObs.gauche) || obstacle(posObs.droite)
+            switch (choixObsOuiNon) {
+                case obsOuiNon.obsOui :
+                    if (obstacleFGD) {
+                         handler(); }
+                    break
+                case obsOuiNon.obsNon :
+                    if (!obstacleFGD) {
+                         handler(); }
                     break
             }
             basic.pause(20)
