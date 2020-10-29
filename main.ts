@@ -67,7 +67,7 @@ enum cRGB {
     jaune,
     //% block="Jaune clair"
     jauneC,
-    //% block="Éleindre les LED"
+    //% block="Éleindre"
     noir }
 enum distanceOF {
     //% block="assez loin"
@@ -157,7 +157,7 @@ function fixVitesse (vitesse: number) {
 //% block="[Moteurs] roue gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
@@ -170,7 +170,7 @@ export function roueG (vitesse: number): void {
 //% block="[Moteurs] roue droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
@@ -180,7 +180,7 @@ export function roueD (vitesse: number): void {
 //% block="avancer à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function avancer (vitesse: number): void {
     roueG(vitesse)
     roueD(vitesse)
@@ -190,7 +190,7 @@ function avancer (vitesse: number): void {
 //% block="reculer à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function reculer (vitesse: number): void {
     avancer(-vitesse)
 }
@@ -199,7 +199,7 @@ function reculer (vitesse: number): void {
 //% block="tourner à droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function tournerD (vitesse: number): void {
     roueG(vitesse)
     roueD(-vitesse)
@@ -209,7 +209,7 @@ function tournerD (vitesse: number): void {
 //% block="tourner à gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 function tournerG (vitesse: number): void{
     roueG(-vitesse)
     roueD(vitesse)
@@ -222,7 +222,7 @@ function tournerG (vitesse: number): void{
 //% block="[Moteurs] $roues à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
-//% group="Moteurs"
+//% group="Actionneurs"
 export function piloter (roues: moteurs, vitesse: number): void{
     switch (roues) {
         case moteurs.avancer :
@@ -248,7 +248,7 @@ export function piloter (roues: moteurs, vitesse: number): void{
 //% blockId=Ks0426stopper
 //% weight=90
 //% block="[Moteurs] stopper le mouvement"
-//% group="Moteurs"
+//% group="Actionneurs"
 export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, 0, 67)
@@ -341,16 +341,16 @@ function allumerRGB (led7: number, led6: number, led5: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED7, led7, 67)
 }
 //% blochId=Ks0426ledRGB
-//% weight=80
+//% weight=5
 //% block="les LED RGB s'éteignent"
-//% group="LED"
+//% group="Actionneurs"
 export function eteindreLED (): void {
     allumerRGB (100, 100, 100)
 }
 //% blochId=Ks0426ledRGB
-//% weight=100
-//% block="les LED RGB s'allume en $couleur"
-//% group="LED"
+//% weight=7
+//% block="les LED RGB $couleur"
+//% group="Actionneurs"
 export function allumerLED (couleur: cRGB): void {
     switch (couleur) {
         case cRGB.blanc :
@@ -395,8 +395,8 @@ export function allumerLED (couleur: cRGB): void {
     }
 }
 //% blochId=Ks0426ledRGBcTous
-//% group="LED"
-//% weight=90
+//% group="Actionneurs"
+//% weight=3
 //% block="les LED RGB : Rouge $rouge \\%, Vert $vert \\%, Bleu $bleu \\%"
 export function allumerRVB (rouge: number, vert: number, bleu: number): void {
     if (rouge < 0) { rouge = 0 }
