@@ -90,10 +90,8 @@ enum moteurs {
     tournerGauche,
     //% block="tourner à droite"
     tournerDroite,
-    //% block="roue gauche"
-    roueGauche,
-    //% block="roue droite"
-    roueDroite
+    //% block="stopper le mouvement"
+    stopper
 }
 enum posObs {
     //% block="devant"
@@ -105,7 +103,7 @@ enum posObs {
 }
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
 //% color="#04B404" icon="\uf17b"
-//% groups="['Démarrage', 'Événements', 'Moteurs', 'Capteurs', 'LED']"
+//% groups="['Démarrage', 'Événements', 'Actionneurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
 /**
  * Initialisation du Robot Ks0426 de Keyestudio sur micro:bit
@@ -153,12 +151,12 @@ function fixVitesse (vitesse: number) {
  * - vitesse positive pour avancer
  */
 //% blockId=Ks0426roueG
-//% weight=30
-//% block="roue gauche à $vitesse \\% de puissance"
+//% weight=80
+//% block="[Moteurs] roue gauche à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-function roueG (vitesse: number): void {
+export function roueG (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED2, fixVitesse(vitesse), 67)
 }
@@ -166,12 +164,12 @@ function roueG (vitesse: number): void {
  * Pour commander le roue droite
  */
 //% blockId=Ks0426roueD
-//% weight=20
-//% block="roue droite à $vitesse \\% de puissance"
+//% weight=70
+//% block="[Moteurs] roue droite à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
-function roueD (vitesse: number): void {
+export function roueD (vitesse: number): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED3, fixSens(vitesse), 67)
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED4, fixVitesse(vitesse), 67)
 }
@@ -219,7 +217,7 @@ function tournerG (vitesse: number): void{
  */
 //% blockId=Ks0426piloter
 //% weight=100
-//% block="$roues à $vitesse \\% de puissance"
+//% block="[Moteurs] $roues à $vitesse \\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Moteurs"
@@ -237,11 +235,8 @@ export function piloter (roues: moteurs, vitesse: number): void{
         case moteurs.tournerDroite :
             tournerD(vitesse)
             break
-        case moteurs.roueGauche :
-            roueG(vitesse)
-            break
-        case moteurs.roueDroite :
-            roueD(vitesse)
+        case moteurs.stopper :
+            stopper()
             break
     }
 }
@@ -249,8 +244,8 @@ export function piloter (roues: moteurs, vitesse: number): void{
  * Pour arrêter le robot
  */
 //% blockId=Ks0426stopper
-//% weight=10
-//% block="stopper le mouvement"
+//% weight=90
+//% block="[Moteurs] stopper le mouvement"
 //% group="Moteurs"
 export function stopper (): void {
     PCA9685.setLedDutyCycle(PCA9685.LEDNum.LED1, 0, 67)
