@@ -454,15 +454,8 @@ export function obstacle (position: posObs): boolean {
 //% block="quand obstacle"
 export function onEventObstacle(handler: () => void) {
     control.inBackground(function () {
-        //let obstacle: boolean;
-        //let distObs: number;
-        // pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0
-        // distanceObs() < 10
         while (true) {
-            //obstacle = pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0
-            //distObs = distanceObs();
-            //obstacle = distObs < 10;
-            if (pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0) {
+            if (distanceObs() < 10 || pins.digitalReadPin(DigitalPin.P2) == 0 || pins.digitalReadPin(DigitalPin.P11) == 0) {
                 handler(); }
             basic.pause(20);
             }
@@ -477,15 +470,8 @@ export function onEventObstacle(handler: () => void) {
 //% block="quand pas obstacle"
 export function onEventPasObstacle(handler: () => void) {
     control.inBackground(function () {
-        //let pasObstacle: boolean;
-        //let distObs: number;
-        // pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1
-        // distanceObs() >= 10
         while (true) {
-            //pasObstacle = pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1
-            //distObs = distanceObs();
-            //pasObstacle = distObs >= 10;
-            if (pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1) {
+            if (distanceObs() >= 10 && pins.digitalReadPin(DigitalPin.P2) == 1 && pins.digitalReadPin(DigitalPin.P11) == 1) {
                 handler(); }
             basic.pause(20);
             }
