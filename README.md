@@ -13,7 +13,7 @@ Acheter le Robot_Ks0426 : https://amzn.to/31XbkDW
 Acheter la carte micro-bit : https://amzn.to/34F2c8A
 
 
-> Ouvrir cette page à [https://ldsrobotique.github.io/robot_ks0426/](https://ldsrobotique.github.io/robot_ks0426/)
+> Ouvrir cette page à [https://ldsrobotique.github.io/Robot_Ks0426/](https://ldsrobotique.github.io/Robot_Ks0426/)
 
 ## Utiliser comme extension
 
