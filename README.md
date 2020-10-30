@@ -1,3 +1,17 @@
+Extension pour gérer le robot Ks0426 de keyestudio avec nano-ordinateur micro:bit.
+
+Copiez et coller le lien suivant dans un navigateur pour acheter le robot : https://amzn.to/31XbkDW
+
+**ATTENTION** : le nano-ordinateur micro:bit n'est pas fourni, vous pouvez en trouver sur le lien suivant : https://amzn.to/34F2c8A
+ 
+![Robot_Ks0426](https://ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=FR&ASIN=B07RLTKLXB&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=ldsrobotique-21")
+
+Acheter le Robot_Ks0426 : https://amzn.to/31XbkDW
+
+![micro:bit Go](https://ws-eu.amazon-adsystem.com/widgets/q?_encoding=UTF8&MarketPlace=FR&ASIN=B01G8X7VM2&ServiceVersion=20070822&ID=AsinImage&WS=1&Format=_SL250_&tag=ldsrobotique-21")
+
+Acheter la carte micro-bit : https://amzn.to/34F2c8A
+
 
 > Ouvrir cette page à [https://ldsrobotique.github.io/robot_ks0426/](https://ldsrobotique.github.io/robot_ks0426/)
 
