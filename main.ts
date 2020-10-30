@@ -553,7 +553,41 @@ export function neopixelTous(neopixelCouleur: neopixelC) {
 //% group="Actionneurs"
 //% weight=95
 //% block="[Neopixel] va de LED $led quantité $qt régler couleur sur $neopixelCouleur"
+//% qt.defl=1
 export function neopixelLot(led: number, qt: number, neopixelCouleur: neopixelC) {
     neopixelAllumer(led, qt, neopixelCouleur)
+}
+/**
+ * Neopixel, tous les LED de la même couleur
+ */
+//% blochId=Ks0426qNeopixelCN
+//% group="Actionneurs"
+//% weight=92
+//% block="[Neopixel] régler couleur sur $neopixelCouleur"
+export function neopixelTousCN(neopixelCouleur: number) {
+    neopixelAllumer(0, 18, neopixelCouleur)
+}
+/**
+ * Neopixel, allumer les LED par lot, couleurs numérique
+ */
+//% blochId=Ks0426qNeopixelLotCN
+//% group="Actionneurs"
+//% weight=90
+//% block="[Neopixel] va de LED $led quantité $qt couleur $neopixelCouleur"
+//% qt.defl=1
+export function neopixelLotCN(led: number, qt: number, neopixelCouleur: number) {
+    neopixelAllumer(led, qt, neopixelCouleur)
+}
+/**
+ * Neopixel, afficher arc-en-ciel
+ */
+//% blochId=Ks0426qNeopixelAEC
+//% group="Actionneurs"
+//% weight=80
+//% block="[Neopixel] afficher arc-en-ciel de $degDebut à $degFin"
+//% degDebut.defl=1
+//% degFin.defl=360
+export function neopixelAEC(degDebut: number, degFin: number) {
+    strip.showRainbow(degDebut, degFin)
 }
 }
