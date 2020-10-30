@@ -556,6 +556,4 @@ export function neopixelTous(neopixelCouleur: neopixelC) {
 export function neopixelLot(led: number, qt: number, neopixelCouleur: neopixelC) {
     neopixelAllumer(led, qt, neopixelCouleur)
 }
-// au démarrage
-initialisation
 }
