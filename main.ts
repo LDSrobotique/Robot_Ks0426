@@ -501,6 +501,21 @@ export function onEventTelecommande(handler: () => void) {
         }
     })
 }
+/**
+ * Événement : quand surface noire détectée
+ */
+//% blochId=Ks0426qTelecommande
+//% group="Événements"
+//% weight=70
+//% block="quand surface noire détectée"
+export function onEventSurfNoir(handler: () => void) {
+    control.inBackground(function () {
+        while (true) {
+            if (pins.digitalReadPin(DigitalPin.P12) == 1 || pins.digitalReadPin(DigitalPin.P13) == 1) { handler(); }
+            basic.pause(20)
+        }
+    })
+}
 // neopixelAllumer
 function neopixelAllumer(led: number, qt: number, neopixelCouleur: neopixelC) {
     switch (neopixelCouleur) {
