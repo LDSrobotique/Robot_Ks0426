@@ -501,47 +501,93 @@ export function onEventTelecommande(handler: () => void) {
         }
     })
 }
+// neopixelAllumer
+function neopixelAllumer(led: number, qt: number, neopixelCouleur: neopixelC) {
+    switch (neopixelCouleur) {
+        case neopixelC.rouge :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Red))
+            break
+        case neopixelC.orange :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Orange))
+            break
+        case neopixelC.jaune :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Yellow))
+            break
+        case neopixelC.vert :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Green))
+            break
+        case neopixelC.bleu :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Blue))
+            break
+        case neopixelC.indigo :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Indigo))
+            break
+        case neopixelC.violet :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Violet))
+            break
+        case neopixelC.magenta :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Purple))
+            break
+        case neopixelC.blanc :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.White))
+            break
+        case neopixelC.noir :
+            strip.range(led, qt).showColor(neopixel.colors(NeoPixelColors.Black))
+            break
+    }
+}
 /**
- * Événement : touche télécommande appuyée
+ * Neopixel, tous les LED de la même couleur
  */
 //% blochId=Ks0426qNeopixel
 //% group="Actionneurs"
 //% weight=100
 //% block="[Neopixel] régler couleur sur $neopixelCouleur"
-export function neopixelR(neopixelCouleur: neopixelC) {
-    switch (neopixelCouleur) {
-        case neopixelC.rouge :
-            strip.showColor(neopixel.colors(NeoPixelColors.Red))
-            break
-        case neopixelC.orange :
-            strip.showColor(neopixel.colors(NeoPixelColors.Orange))
-            break
-        case neopixelC.jaune :
-            strip.showColor(neopixel.colors(NeoPixelColors.Yellow))
-            break
-        case neopixelC.vert :
-            strip.showColor(neopixel.colors(NeoPixelColors.Green))
-            break
-        case neopixelC.bleu :
-            strip.showColor(neopixel.colors(NeoPixelColors.Blue))
-            break
-        case neopixelC.indigo :
-            strip.showColor(neopixel.colors(NeoPixelColors.Indigo))
-            break
-        case neopixelC.violet :
-            strip.showColor(neopixel.colors(NeoPixelColors.Violet))
-            break
-        case neopixelC.magenta :
-            strip.showColor(neopixel.colors(NeoPixelColors.Purple))
-            break
-        case neopixelC.blanc :
-            strip.showColor(neopixel.colors(NeoPixelColors.White))
-            break
-        case neopixelC.noir :
-            strip.showColor(neopixel.colors(NeoPixelColors.Black))
-            break
-    }
+export function neopixelTous(neopixelCouleur: neopixelC) {
+    neopixelAllumer(0, 18, neopixelCouleur)
 }
-// au démarrage
-initialisation
+/**
+ * Neopixel, allumer les LED par lot
+ */
+//% blochId=Ks0426qNeopixelLot
+//% group="Actionneurs"
+//% weight=95
+//% block="[Neopixel] va de LED $led quantité $qt régler couleur sur $neopixelCouleur"
+//% qt.defl=1
+export function neopixelLot(led: number, qt: number, neopixelCouleur: neopixelC) {
+    neopixelAllumer(led, qt, neopixelCouleur)
+}
+/**
+ * Neopixel, tous les LED de la même couleur
+ */
+//% blochId=Ks0426qNeopixelCN
+//% group="Actionneurs"
+//% weight=92
+//% block="[Neopixel] régler couleur sur $neopixelCouleur"
+export function neopixelTousCN(neopixelCouleur: number) {
+    neopixelAllumer(0, 18, neopixelCouleur)
+}
+/**
+ * Neopixel, allumer les LED par lot, couleurs numérique
+ */
+//% blochId=Ks0426qNeopixelLotCN
+//% group="Actionneurs"
+//% weight=90
+//% block="[Neopixel] va de LED $led quantité $qt couleur $neopixelCouleur"
+//% qt.defl=1
+export function neopixelLotCN(led: number, qt: number, neopixelCouleur: number) {
+    neopixelAllumer(led, qt, neopixelCouleur)
+}
+/**
+ * Neopixel, afficher arc-en-ciel
+ */
+//% blochId=Ks0426qNeopixelAEC
+//% group="Actionneurs"
+//% weight=80
+//% block="[Neopixel] afficher arc-en-ciel de $degDebut à $degFin"
+//% degDebut.defl=1
+//% degFin.defl=360
+export function neopixelAEC(degDebut: number, degFin: number) {
+    strip.showRainbow(degDebut, degFin)
+}
 }
