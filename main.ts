@@ -115,7 +115,7 @@ enum neopixelC {
     //% block="noir"
     noir }
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
-let tAncien = 0
+// let tAncien = 0
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Actionneurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
@@ -326,12 +326,12 @@ export function ligneNoire (irLigneN: irLN, surface: irLignesVide): boolean {
 //% block="touche télécommande = $irTouche"
 //% group="Capteurs"
 export function telecommande(irTouche: touche): boolean {
-//    if (maqueen.IR_read() == irTouche && maqueen.IR_read() != tAncien) {
+    if (maqueen.IR_read() == irTouche) {
 //        tAncien = maqueen.IR_read()
-//        return true
-//    } else {
+        return true
+    } else {
         return false
-//    }
+    }
 }
 /**
  * Gestion des 2 LEDs RGB
@@ -494,11 +494,12 @@ export function onEventPasObstacle(handler: () => void) {
 //% block="quand touche télécommande appuyée"
 export function onEventTelecommande(handler: () => void) {
     control.inBackground(function () {
-        let tCourant = 0
+//        let tCourant = 0
 //        let tAncien = 0
         while (true) {
 //            tCourant = maqueen.IR_read()
-            if (maqueen.IR_read() != tAncien) { tAncien = maqueen.IR_read(); handler(); }
+//            if (maqueen.IR_read() != tAncien) { tAncien = maqueen.IR_read(); handler(); }
+            handler()
             basic.pause(20)
         }
     })
