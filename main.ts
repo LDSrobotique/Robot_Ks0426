@@ -326,12 +326,12 @@ export function ligneNoire (irLigneN: irLN, surface: irLignesVide): boolean {
 //% block="touche télécommande = $irTouche"
 //% group="Capteurs"
 export function telecommande(irTouche: touche): boolean {
-    if (maqueen.IR_read() == irTouche && maqueen.IR_read() != tAncien) {
-        tAncien = maqueen.IR_read()
-        return true
-    } else {
+//    if (maqueen.IR_read() == irTouche && maqueen.IR_read() != tAncien) {
+//        tAncien = maqueen.IR_read()
+//        return true
+//    } else {
         return false
-    }
+//    }
 }
 /**
  * Gestion des 2 LEDs RGB
