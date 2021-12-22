@@ -327,8 +327,8 @@ export function ligneNoire (irLigneN: irLN, surface: irLignesVide): boolean {
 //% group="Capteurs"
 export function telecommande(irTouche: touche): boolean {
     if (maqueen.IR_read() == irTouche && maqueen.IR_read() != tAncien) {
-        return true
         tAncien = maqueen.IR_read()
+        return true
     } else {
         return false
     }
