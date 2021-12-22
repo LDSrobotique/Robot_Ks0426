@@ -115,6 +115,7 @@ enum neopixelC {
     //% block="noir"
     noir }
 let strip = neopixel.create(DigitalPin.P5, 18, NeoPixelMode.RGB)
+let tAncien = 0
 //% color="#04B404" icon="\uf17b"
 //% groups="['Démarrage', 'Événements', 'Actionneurs', 'Capteurs', 'LED']"
 namespace Ks0426 {
@@ -230,7 +231,7 @@ function tournerG (vitesse: number): void{
  */
 //% blockId=Ks0426piloter
 //% weight=210
-//% block="[Moteurs] $roues à $vitesse \\% de puissance"
+//% block="[Moteurs] $roues à $vitesse\\% de puissance"
 //% vitesse.shadow="speedPicker"
 //% vitesse.defl=50
 //% group="Actionneurs"
@@ -325,8 +326,9 @@ export function ligneNoire (irLigneN: irLN, surface: irLignesVide): boolean {
 //% block="touche télécommande = $irTouche"
 //% group="Capteurs"
 export function telecommande(irTouche: touche): boolean {
-    if (maqueen.IR_read() == irTouche) {
+    if (maqueen.IR_read() == irTouche && maqueen.IR_read() != tAncien) {
         return true
+        tAncien = maqueen.IR_read()
     } else {
         return false
     }
@@ -493,10 +495,10 @@ export function onEventPasObstacle(handler: () => void) {
 export function onEventTelecommande(handler: () => void) {
     control.inBackground(function () {
         let tCourant = 0
-        let tAncien = 0
+//        let tAncien = 0
         while (true) {
-            tCourant = maqueen.IR_read()
-            if (tCourant != tAncien) { tAncien = tCourant; handler(); }
+//            tCourant = maqueen.IR_read()
+            if (maqueen.IR_read() != tAncien) { tAncien = maqueen.IR_read(); handler(); }
             basic.pause(20)
         }
     })

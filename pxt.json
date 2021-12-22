@@ -7,7 +7,8 @@
         "radio": "*",
         "neopixel": "github:microsoft/pxt-neopixel#v0.7.3",
         "pxt-pca9685": "github:jdarling/pxt-pca9685#v0.0.5",
-        "maqueen": "github:jhlucky/maqueen#04e836719d009a1e8fe2cb03b324f0b70ee490be"
+        "maqueen": "github:jhlucky/maqueen#04e836719d009a1e8fe2cb03b324f0b70ee490be",
+        "microphone": "*"
     },
     "files": [
         "main.ts",
@@ -16,6 +17,10 @@
     "testFiles": [
         "test.ts"
     ],
+    "targetVersions": {
+        "target": "4.0.16",
+        "targetId": "microbit"
+    },
     "supportedTargets": [
         "microbit"
     ],
